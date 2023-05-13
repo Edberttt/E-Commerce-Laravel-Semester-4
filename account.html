@@ -355,16 +355,16 @@
 							<button onclick="register()">Register</button>
 							<hr id="Indicator">
 						</div>
-						<form id="LoginForm">
+						<form id="LoginForm" action="account_detail.html">
 							<input type="text" placeholder="username" required>
 							<input type="password" placeholder="password" required>		
 							<div class="form-group">
 								<input type="checkbox" name="remember_me" id="remember_me">
 								<label for="remember_me">Remember Me</label>
 							  </div>					
-							<button type="submit" class="btn">Login</button>
+							<button type="submit" class="btn" id="btnLogin">Login</button>
 						</form>
-						<form id="RegForm">
+						<form id="RegForm" action="account_detail.html">
 							<input type="text" placeholder="name" required>
 							<input type="password" placeholder="password" required>
 							<input type="email" placeholder="email" required>
@@ -373,7 +373,7 @@
 								<label><input type="radio" name="gender" value="male">Male</label>
 								<label><input type="radio" name="gender" value="female">Female</label>
 							</div>
-							<button type="submit" class="btn">Register</button>
+							<button type="submit" class="btn" id="btnRegister">Register</button>
 						</form>
 						  
 						  
@@ -604,6 +604,64 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		}
 
 	</script>
+
+	<!--===============================================================================================-->
+	<script src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script>
+
+	$('.btn').on('click', function(e) {
+		e.preventDefault();
+	});
+	$('#btnLogin').each(function(){
+		$(this).on('click', function(){
+		swal({
+		icon: "success",
+		title: "Login Successful!",
+		buttons: {
+			confirm: {
+			text: "OK",
+			value: true,
+			visible: true,
+			className: "",
+			closeModal: true
+			}
+		}
+		}).then((value) => {
+		if (value) {
+			window.location.href = "account_detail.html";
+		}
+		});
+
+		$(this).off('click');
+	});
+	});
+
+	$('#btnRegister').each(function(){
+		$(this).on('click', function(){
+		swal({ 
+		icon: "success",
+		title: "Register Successful!",
+		buttons: {
+			confirm: {
+			text: "OK",
+			value: true,
+			visible: true,
+			className: "",
+			closeModal: true
+			}
+		}
+		}).then((value) => {
+		if (value) {
+			window.location.href = "account_detail.html";
+		}
+		});
+
+		$(this).off('click');
+	});
+	});
+
+	</script>
+
 
 </body>
 </html>

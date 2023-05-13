@@ -583,66 +583,13 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 
-
-
-input[type="text"] {
+.wrap-icon-header form input[type="text"]{
   padding: 4px 18px;
   border: 2px solid black;
   border-radius: 20px;
   font-size: 14px;
   background-color: transparent;
 }
-
-/*==================================================================
-[ Popup Login / Sign Up ]*/
-.centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.popup {
-  width: 400px;
-  background: #fff;
-  border-radius: 6px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.1);
-  text-align: center;
-  padding: 0 30px 30px;
-  color: #333;
-  visibility: hidden;
-  z-index: 9999; /* Menempatkan popup di atas elemen lain */
-}
-
-
-.open-popup {
-  visibility: visible;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.popup h2 {
-  font-size: 38px;
-  font-weight: 500;
-  margin: 30px 0 10px;
-}
-
-.popup button {
-  width: 100%;
-  margin-top: 50px;
-  padding: 10px 0;
-  background: #6fd649;
-  color: #fff;
-  border: 0;
-  outline: none;
-  font-size: 18px;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-}
-
 
 /*---------------------------------------------*/
 @media (max-width: 767px) {
@@ -868,6 +815,195 @@ input[type="text"] {
   .menu-mobile {
     display: none;
   }
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Login/Register ]*/
+.account-page{
+  padding: 80px 0;
+  background: url("../images/Hero.jpg") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+}
+
+.account-page img{
+  margin-right: 50px;
+}
+.form-container{
+  background: #f2f2f2;
+  width: 100%;
+  max-width: 350px;
+  height: 400px;
+  position: relative;
+  text-align: center;
+  padding: 20px 0;
+  margin: 100px 20px 0px;
+  box-shadow: 0 0 80px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 20%;
+  overflow: hidden;
+  flex: 0 1 350px;
+}
+@media only screen and (max-width: 768px) {
+  .form-container {
+    max-width: 100%;
+    margin: 100px auto;
+  }
+}
+.form-group {
+  display: flex;
+  align-items: left;
+  transform: scale(0.8);
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+.form-group label{
+  width: 100;
+  font-family: Poppins-Medium;
+  font-size: 18px;
+  line-height: 1.466667;
+  margin-top: 4px;
+}
+
+
+.form-container span{
+  font-weight: bold;
+  font-size: 18px;
+  color: #555;
+  padding-top: 10px;
+  cursor: pointer;
+  width: 100px;
+  display: inline-block;
+}
+.form-btn{
+  display: inline-block;
+  font-family: Poppins-Medium;
+  font-size: 20px;
+  line-height: 1.466667;
+  text-transform: uppercase;
+  padding-top: 18px;
+}
+.form-btn > *:first-child {
+  padding-right: 20px;
+}
+
+.form-btn > *:last-child {
+  padding-left: 20px;
+}
+.form-container form{
+  max-width: 285px;
+  padding: 0 20px;
+  position: absolute;
+  top: 100px;
+  transition: transform 0.5s;
+}
+.form-container form input[type="text"]{
+  padding: 4px 18px;
+  border: 2px solid black;
+  border-radius: 20px;
+  font-size: 14px;
+  background-color: transparent;
+  margin: 10px 32px;
+}
+.form-container form input[type="email"]{
+  padding: 4px 18px;
+  border: 2px solid black;
+  border-radius: 20px;
+  font-size: 14px;
+  background-color: transparent;
+  margin: 10px 32px;
+}
+.form-container form input[type="password"]{
+  padding: 4px 18px;
+  border: 2px solid black;
+  border-radius: 20px;
+  font-size: 14px;
+  background-color: transparent;
+  margin: 10px 32px;
+}
+.form-container form input[type="tel"]{
+  padding: 4px 18px;
+  border: 2px solid black;
+  border-radius: 20px;
+  font-size: 14px;
+  background-color: transparent;
+  margin: 10px 32px;
+}
+.form-container form input[type="radio"]{
+  padding: 0;
+  border: 2px solid black;
+  border-radius: 20px;
+  font-size: 14px;
+  background-color: transparent;
+  transform: scale(0.8);
+  width: 25px;
+  height: 20px;
+}
+.gender {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+}
+
+.gender label {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.form-container form input[type="checkbox"]{
+  padding: 0;
+  border: 2px solid black;
+  border-radius: 20px;
+  font-size: 14px;
+  background-color: transparent;
+  margin: 0;
+  width: 30%;
+}
+.form-container form button{
+  padding: 15px 24px;
+  border-radius: 20px;
+  font-size: 16px;
+  background-color: #e6e6e6;
+  margin: 10px 32px;
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  line-height: 1.466667;
+  text-transform: uppercase;
+}
+form input{
+  width:100%;
+  height: 30px;
+  margin: 10px 0;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+}
+form .btn{
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  margin: 10px 0;
+}
+form .btn:focus{
+  outline: none;
+}
+#LoginForm{
+  left: -300px;
+}
+#RegForm{
+  left: 0;
+}
+form a{
+  font-size: 12px;
+}
+#Indicator{
+  width: 72px;
+  border: none;
+  background: black;
+  height: 3px;
+  margin-top: 8px;
+  transform: translateX(73px);
+  transition: transform 0.5s;
 }
 
 
@@ -1120,6 +1256,10 @@ input[type="text"] {
   .header-cart-title {
     padding-bottom: 35px;
   }
+}
+.col-lg-6{
+  display: flex;
+  justify-content: center;
 }
 
 

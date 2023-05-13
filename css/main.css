@@ -1006,6 +1006,140 @@ form a{
   transition: transform 0.5s;
 }
 
+/*//////////////////////////////////////////////////////////////////
+[ Account Detail ]*/
+.containerPage{
+  margin-top: 30px;
+}
+
+.profile-tab-nav {
+  width: 100%;
+  max-width: 200px;
+  border-right: 1px solid #dee2e6;
+  height: 450px;
+}
+
+.profile-tab-nav .nav-pills .nav-link {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6;
+  padding: 15px;
+}
+
+.profile-tab-nav .nav-pills .nav-link.active {
+  color: #fff;
+  background-color: #717fe0;
+  padding: 15px;
+}
+
+.profile-tab-nav .nav-pills .nav-link i {
+  font-size: 20px;
+  margin-right: 10px;
+  padding: 0;
+  margin-top: 0;
+}
+
+
+.profile-tab-nav .nav-pills .nav-link:hover {
+  color: #e6e6e6;
+  background-color: #dee2e6;
+  color: #000;
+  padding: 15px;
+}
+
+.profile-tab-nav .nav-pills .nav-link:focus {
+  box-shadow: none;
+}
+
+.profile-tab-nav .nav-pills .nav-link.disabled {
+  color: #6c757d;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.profile-tab-nav .nav-pills .nav-link.disabled:hover {
+  color: #6c757d;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.tab-content {
+  flex: 1;
+  max-width: calc(100% - 200px);
+}
+
+.tab-content .tab-pane .form-group label {
+  font-weight: 600;
+}
+
+.tab-content .tab-pane .form-control {
+  border-radius: 0;
+}
+
+.tab-content .tab-pane .btn {
+  border-radius: 0;
+  margin-right: 10px;
+}
+
+.tab-content .tab-pane .btn-primary {
+  background-color: #f2f2f2;
+  border-radius: 30px;
+  padding: 15px 30px;
+  margin: 10px;
+  color: black;
+  border-color: #f2f2f2;
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  line-height: 1.466667;
+  text-transform: uppercase;
+}
+
+.tab-content .tab-pane .btn-primary:hover {
+  background-color: #717fe0;
+  color: #fff;
+  border-radius: 30px;
+  padding: 15px 30px;
+  margin: 10px;
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  line-height: 1.466667;
+  text-transform: uppercase;
+}
+#order .list-group-item .d-flex{
+  font-family: Poppins-Medium;
+  font-size: 18px;
+  line-height: 1.466667;
+}
+#order .list-group-item small{
+  font-size: 15px;
+}
+.text-right{
+  padding: 0;
+  margin-bottom: 30px;
+}
+.py-5.my-5 {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 1200px;
+  min-height: 600px;
+  margin: 0 auto;
+}
+.py-5.my-5 span{
+  font-family: Poppins-Medium;
+  font-size: 18px;
+  line-height: 1.466667;
+  margin-left: 55px;
+  margin-bottom: 30px;
+}
+.account-icon{
+  margin-left: 80px;
+  color: #000;
+  font-size: 50px;
+
+}
+
 
 /*//////////////////////////////////////////////////////////////////
 [ Sidebar ]*/

@@ -974,8 +974,8 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 form input{
   width:100%;
   height: 30px;
-  margin: 10px 0;
-  padding: 0 10px;
+  margin: 0px 0;
+  padding: 0 0px;
   border: 1px solid #ccc;
 }
 form .btn{
@@ -2317,6 +2317,19 @@ input.num-product::-webkit-inner-spin-button {
   border-collapse: collapse;
   width: 100%;
   min-width: 680px;
+<<<<<<< Updated upstream
+=======
+  /* margin: 0 auto; */
+}
+
+.judul_form{
+  text-align: center;
+  text-transform: uppercase;
+  padding-bottom: 20px;
+  padding-left: 100px;
+  padding-top: 0px;
+  margin-top: 0px;
+>>>>>>> Stashed changes
 }
 
 .table-shopping-cart tr {
@@ -2349,6 +2362,19 @@ input.num-product::-webkit-inner-spin-button {
   padding-right: 50px;
   text-align: right;
   font-size: 16px;
+<<<<<<< Updated upstream
+=======
+  text-align: center;
+  margin: 0px 5px 0px 5px;
+  padding-left: 10px;
+}
+
+.table-shopping-cart .column-6{
+  width: 250px;
+  /* margin: 0px 5px 0px 5px; */
+  /* padding-top: 150px; */
+  padding-left: 20px;
+>>>>>>> Stashed changes
 }
 
 .table-shopping-cart .table_row {

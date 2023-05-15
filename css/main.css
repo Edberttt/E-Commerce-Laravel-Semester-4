@@ -2249,7 +2249,7 @@ input.num-product::-webkit-inner-spin-button {
 .table-shopping-cart {
   border-collapse: collapse;
   width: 100%;
-  min-width: 620px;
+  min-width: 681px;
 <<<<<<< Updated upstream
 =======
   /* margin: 0 auto; */
@@ -2852,7 +2852,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .size-115 {
-  min-width: 185px;
+  min-width: 170px;
   height: 45px;
 }
 
@@ -2874,6 +2874,8 @@ input.num-product::-webkit-inner-spin-button {
 .size-119 {
   min-width: 156px;
   height: 45px;
+  /* width: 100px;
+  height: 45px; */
 }
 
 .size-120 {
@@ -3127,6 +3129,12 @@ input.num-product::-webkit-inner-spin-button {
 .bor19 {
   border: 1px solid #d9d9d9;
   border-radius: 2px;
+}
+
+.borCheckout {
+  border-bottom: 1px dashed #d9d9d9;
+  border-width: 5px;
+  max-width: 500px;
 }
 
 

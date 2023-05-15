@@ -417,20 +417,38 @@
 
 						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 							<!-- <div class="flex-w flex-m m-r-20 m-tb-5">
-								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
+								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" id="couponTextBox" type="text" name="coupon" data-notify="No Coupon Today" placeholder="Coupon Code" oninvalid="this.setCustomValidity('Text must be at least 5 characters long.')">
 									
+
+                                <input type="text" id="myTextbox" placeholder="Enter text here" required minlength="5" oninvalid="this.setCustomValidity('Text must be at least 5 characters long.')">
 								<div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
 									Apply coupon
 								</div>
 							</div> -->
 
-							<div style="padding-left: 200px;" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
 								Update Cart
 							</div>
 						</div>
 					</div>
 				</div>
 
+                <!-- <script>
+                    const textbox = document.getElementById("couponTextbox");
+                    const notification = document.getElementById("notification");
+
+                    textbox.addEventListener("input", function() {
+                    if(textbox.value.length < 5) {
+                        // notification.innerText = "Text must be at least 5 characters long.";
+                        notification.innerText = "No Coupon for Today";
+                    } else {
+                        notification.innerText = "";
+                    }
+                    });
+
+                </script> -->
+
+				<!-- div Cart kolom kanan checkout -->
 				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
 					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
 						<h4 class="mtext-109 cl2 p-b-30">
@@ -451,7 +469,8 @@
 							</div>
 						</div>
 
-						<!-- <div class="flex-w flex-t bor12 p-t-15 p-b-30">
+						<!-- cart shipping -->
+						<div class="flex-w flex-t bor12 p-t-15 p-b-30">
 							<div class="size-208 w-full-ssm">
 								<span class="stext-110 cl2">
 									Shipping:
@@ -493,7 +512,7 @@
 										
 								</div>
 							</div>
-						</div> -->
+						</div>
 
 						<div class="flex-w flex-t p-t-27 p-b-33">
 							<div class="size-208">
@@ -509,12 +528,9 @@
 							</div>
 						</div>
 
-						<!-- <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Proceed to Checkout
-						</button> -->
-						<a href="checkout.html" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-							Proceed to Checkout
-						</a>
+						</button>
 					</div>
 				</div>
 			</div>

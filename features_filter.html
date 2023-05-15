@@ -38,6 +38,7 @@
             transform : scaleX(-1);
             -ms-filter : fliph; /*IE*/
             filter : fliph; /*IE*/
+            text-align: left;
         }
 
         #camera {
@@ -46,7 +47,8 @@
             transform : scaleX(-1);
             -ms-filter : fliph; /*IE*/
             filter : fliph; /*IE*/
-            border: 1px black dotted;
+            border: 3px black;
+            text-align: left;
         }
 
         #tryon {
@@ -369,7 +371,7 @@
 
 
 	<!-- breadcrumb -->
-	<div class="container">
+	<!-- <div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
 			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
 				Home
@@ -380,7 +382,15 @@
 				Features
 			</span>
 		</div>
-	</div>
+	</div> -->
+
+	
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-feature.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Features
+		</h2>
+	</section>	
 
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -389,12 +399,15 @@
     <!-- clmtrack -->
     <script src="js/utils.js"></script>
     <script src="js/clmtrackr.js"></script>
-    <div id="tryon">
-        <video id="camera" loop></video>
-        <canvas id="overlay"></canvas>
-    </div>
-    <button id="start">Start</button>
-    <div id="debug"></div>
+
+	<div id="tryon" class="text-left">
+		<video id="camera" loop></video>
+		<canvas id="overlay"></canvas>
+	</div>
+	<button id="start" class="text-left">Start</button>
+	<br>
+	<div id="debug"></div>
+      
 
     <script>
         /**
@@ -673,8 +686,8 @@
             };
 
             tryOn = new TryOnFace({
-                width: 640,
-                height: 480,
+                width: 400,
+                height: 400,
                 debug: true,
                 object: object,
                 statusHandler: function(status) {

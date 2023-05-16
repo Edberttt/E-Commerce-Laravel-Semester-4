@@ -38,6 +38,7 @@
             transform : scaleX(-1);
             -ms-filter : fliph; /*IE*/
             filter : fliph; /*IE*/
+            text-align: left;
         }
 
         #camera {
@@ -46,7 +47,8 @@
             transform : scaleX(-1);
             -ms-filter : fliph; /*IE*/
             filter : fliph; /*IE*/
-            border: 1px black dotted;
+            border: 3px black;
+            text-align: left;
         }
 
         #tryon {
@@ -78,25 +80,7 @@
 			<div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
-						Free shipping for standard order over $100
-					</div>
-
-					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							Help & FAQs
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							My Account
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							USD
-						</a>
+						Free shipping for standard order over IDR 1.000.000
 					</div>
 				</div>
 			</div>
@@ -114,11 +98,6 @@
 						<ul class="main-menu">
 							<li>
 								<a href="index.html">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul>
 							</li>
 
 							<li>
@@ -126,15 +105,7 @@
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.html">Features</a>
-							</li>
-
-							<li>
-								<a href="blog.html">Blog</a>
-							</li>
-
-							<li>
-								<a href="about.html">About</a>
+								<a href="features_filter.html">Features</a>
 							</li>
 
 							<li>
@@ -205,27 +176,7 @@
 			<ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
-						Free shipping for standard order over $100
-					</div>
-				</li>
-
-				<li>
-					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							Help & FAQs
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							My Account
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
-						</a>
+						Free shipping for standard order over IDR 1.000.000
 					</div>
 				</li>
 			</ul>
@@ -233,14 +184,6 @@
 			<ul class="main-menu-m">
 				<li>
 					<a href="index.html">Home</a>
-					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul>
-					<span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
 				</li>
 
 				<li>
@@ -248,17 +191,9 @@
 				</li>
 
 				<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+					<a href="features_filter.html" class="label1 rs1" data-label1="hot">Features</a>
 				</li>
-
-				<li>
-					<a href="blog.html">Blog</a>
-				</li>
-
-				<li>
-					<a href="about.html">About</a>
-				</li>
-
+				
 				<li>
 					<a href="contact.html">Contact</a>
 				</li>
@@ -369,7 +304,7 @@
 
 
 	<!-- breadcrumb -->
-	<div class="container">
+	<!-- <div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
 			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
 				Home
@@ -380,7 +315,15 @@
 				Features
 			</span>
 		</div>
-	</div>
+	</div> -->
+
+	
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-feature.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Features
+		</h2>
+	</section>	
 
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -389,12 +332,15 @@
     <!-- clmtrack -->
     <script src="js/utils.js"></script>
     <script src="js/clmtrackr.js"></script>
-    <div id="tryon">
-        <video id="camera" loop></video>
-        <canvas id="overlay"></canvas>
-    </div>
-    <button id="start">Start</button>
-    <div id="debug"></div>
+
+	<div id="tryon" class="text-left">
+		<video id="camera" loop></video>
+		<canvas id="overlay"></canvas>
+	</div>
+	<button id="start" class="text-left">Start</button>
+	<br>
+	<div id="debug"></div>
+      
 
     <script>
         /**
@@ -673,8 +619,8 @@
             };
 
             tryOn = new TryOnFace({
-                width: 640,
-                height: 480,
+                width: 400,
+                height: 400,
                 debug: true,
                 object: object,
                 statusHandler: function(status) {

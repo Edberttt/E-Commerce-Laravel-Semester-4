@@ -28,6 +28,14 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+<style>
+	.close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body class="animsition">
 	
@@ -273,9 +281,7 @@
 			</div>
 			<div class="bg-white shadow rounded-lg d-block d-sm-flex">
 				<div id="profileTabNavContainer" class="profile-tab-nav border-right">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+					<span class="close" onclick="closeProfileTabNav()">&times;</span>
 					<a class="account-icon" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
 						<i class="fa fa-user-circle text-black mr-1 rounded-circle"></i>
 					</a>
@@ -411,6 +417,21 @@
 
 
 		function toggleProfileNav() {
+			var profileNav = document.getElementById("profileTabNavContainer");
+			var containerPage = document.getElementsByClassName("containerPage")[0];
+			var tabContent = document.getElementById("v-pills-tabContent");
+
+			if (containerPage.classList.contains("show-profile")) {
+				containerPage.classList.remove("show-profile");
+				tabContent.classList.remove("blur");
+			} else {
+				containerPage.classList.add("show-profile");
+				tabContent.classList.add("blur");
+			}
+		}
+
+		
+		function closeProfileTabNav() {
 			var profileNav = document.getElementById("profileTabNavContainer");
 			var containerPage = document.getElementsByClassName("containerPage")[0];
 			var tabContent = document.getElementById("v-pills-tabContent");
@@ -568,6 +589,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			LoginForm.style.transform = "translateX(300px)";
 			Indicator.style.transform = "translateX(-22px)";
 		}
+
 
 	</script>
 

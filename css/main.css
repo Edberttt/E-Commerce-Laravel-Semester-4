@@ -2433,15 +2433,8 @@ input.num-product::-webkit-inner-spin-button {
 .table-shopping-cart {
   border-collapse: collapse;
   width: 100%;
-<<<<<<< HEAD
   min-width: 681px;
-<<<<<<< Updated upstream
-=======
-=======
-
   min-width: 620px;
-
->>>>>>> 8133dc2b53926beb669bbe360ad5555e7af8618b
   /* margin: 0 auto; */
 }
 

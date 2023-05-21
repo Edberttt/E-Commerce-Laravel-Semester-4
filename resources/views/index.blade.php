@@ -58,7 +58,7 @@
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="#" class="logo">
+					<a href="{{ url('/')}}/" class="logo">
 						<img src="images/icons/logo.png" alt="IMG-LOGO">
 					</a>
 

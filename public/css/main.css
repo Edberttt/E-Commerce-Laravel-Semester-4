@@ -3883,3 +3883,17 @@ input.num-product::-webkit-inner-spin-button {
   }
 
 }
+
+
+.search-form {
+  background-color: transparent;
+  border: none;
+  width: 3000px;
+  margin-left: 10px;
+}
+
+.search-form input {
+  background-color: transparent;
+  border: none;
+  color: black; /* Ubah warna teks sesuai kebutuhan Anda */
+}

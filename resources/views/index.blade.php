@@ -1,3 +1,27 @@
+<!-- Menghubungkan ke database -->
+<?php
+    // Buat koneksi ke database
+    $conn = mysqli_connect("localhost", "root", "root", "webdev");
+
+    // Periksa koneksi
+    if (mysqli_connect_errno()) {
+        echo "Koneksi database gagal: " . mysqli_connect_error();
+        exit();
+    }
+
+    // Query untuk mengambil data kategori dari tabel category
+    $query = "SELECT category_name FROM category";
+
+    // Eksekusi query
+    $result = mysqli_query($conn, $query);
+
+    // Tampung hasil query dalam array
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    // Tutup koneksi database
+    mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -325,7 +349,7 @@
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="{{ url('/') }}product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
 							</div>
@@ -349,7 +373,7 @@
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
-								<a href="{{ url('/') }}product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
 							</div>
@@ -373,7 +397,7 @@
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-								<a href="{{ url('/') }}product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="}product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
 							</div>
@@ -483,17 +507,12 @@
 						All Products
 					</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-						Women
-					</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-						Men
-					</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-						Unisex
-					</button>
+					<!-- Membuat button berdasarkan data kategori -->
+					<?php foreach ($categories as $category): ?>
+						<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".<?= strtolower($category['category_name']) ?>">
+							<?= $category['category_name'] ?>
+						</button>
+					<?php endforeach; ?>
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -516,197 +535,118 @@
 						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 							<i class="zmdi zmdi-search"></i>
 						</button>
-
-						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
-					</div>	
+						
+						<form method="GET" action="" class="search-form">
+							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search" placeholder="Search" value="<?php echo $_GET['search'] ?? ''; ?>">
+						</form>
+					</div>
 				</div>
 
 				<!-- Filter -->
 				<div class="dis-none panel-filter w-full p-t-10">
 					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-						<div class="filter-col1 p-r-15 p-b-27">
+						<div class="filter-col1 p-r-15 p-b-27 col-md-4">
 							<div class="mtext-102 cl2 p-b-15">
 								Sort By
 							</div>
 
 							<ul>
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
+									<a href="?sort=default" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? 'default') === 'default' ? 'filter-link-active' : ''; ?>">
 										Default
 									</a>
 								</li>
-
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Popularity
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Average rating
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+									<a href="?sort=newness" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'newness' ? 'filter-link-active' : ''; ?>">
 										Newness
 									</a>
 								</li>
-
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
+									<a href="?sort=low-to-high" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'low-to-high' ? 'filter-link-active' : ''; ?>">
 										Price: Low to High
 									</a>
 								</li>
-
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
+									<a href="?sort=high-to-low" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'high-to-low' ? 'filter-link-active' : ''; ?>">
 										Price: High to Low
 									</a>
 								</li>
 							</ul>
+
+
 						</div>
 
-						<div class="filter-col2 p-r-15 p-b-27">
+						<div class="filter-col2 p-r-15 p-b-27 col-md-4">
 							<div class="mtext-102 cl2 p-b-15">
 								Price
 							</div>
 
 							<ul>
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+									<a href="?sort=default" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? 'default') === 'default' ? 'filter-link-active' : ''; ?>">
 										All
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
+									<a href="?sort=newness" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '0m-to-1m' ? 'filter-link-active' : ''; ?>">
 										Rp. 0 - Rp. 1.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
+									<a href="?sort=low-to-high" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '1m-to-5m' ? 'filter-link-active' : ''; ?>">
 										Rp. 1.000.000,00 - Rp. 5.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
+									<a href="?sort=5m-to-10m" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '5m-to-10m' ? 'filter-link-active' : ''; ?>">
 										Rp. 5.000.000,00 - Rp. 10.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
+									<a href="?sort=10m-to-15m" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '10m-to-15m' ? 'filter-link-active' : ''; ?>">
 										Rp. 10.000.000,00 - Rp. 15.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
+									<a href="?sort=15m+" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '15m+' ? 'filter-link-active' : ''; ?>">
 										Rp. 15.000.000,00+
 									</a>
 								</li>
 							</ul>
 						</div>
 
-						<div class="filter-col3 p-r-15 p-b-27">
+						<div class="filter-col3 p-r-15 p-b-27 col-md-4">
 							<div class="mtext-102 cl2 p-b-15">
 								Color
 							</div>
 
 							<ul>
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #222;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Black
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-										Blue
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Grey
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: brown;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Brown
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: gold;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Gold
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-										<i class="zmdi zmdi-circle-o"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										White
-									</a>
-								</li>
+								<?php
+								// Ambil data warna dari tabel product (misalnya menggunakan PDO)
+								$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
+								$stmt = $dbh->prepare('SELECT DISTINCT product_color FROM product');
+								$stmt->execute();
+								$colors = $stmt->fetchAll(PDO::FETCH_COLUMN);
+								
+								// Loop melalui setiap warna
+								foreach ($colors as $color) {
+									echo '<li class="p-b-6">';
+									echo '<span class="fs-15 lh-12 m-r-6" style="color: ' . $color . ';">';
+									echo '<i class="zmdi zmdi-circle"></i>';
+									echo '</span>';
+									echo '<a href="#" class="filter-link stext-106 trans-04">';
+									echo $color;
+									echo '</a>';
+									echo '</li>';
+								}
+								?>
 							</ul>
-						</div>
-
-						<div class="filter-col4 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">
-								Tags
-							</div>
-
-							<div class="flex-w p-t-4 m-r--5">
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									Gucci
-								</a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									Christian Dior
-								</a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									Tommy Hilfiger
-								</a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									Prada
-								</a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									Escada
-								</a>
-							</div>
-						</div>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -1147,6 +1087,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
-
 </body>
 </html>

@@ -463,29 +463,6 @@
 				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
 
 				// Mengatur default sorting berdasarkan nama produk
-				$filter = $_GET['filter'] ?? 'default';
-				switch ($filter) {
-					case '0m-to-1m':
-						$wheremoney = 'product_price <= 1000000 and product_price >= 0';
-						break;
-					case '1m-to-5m':
-						$wheremoney = 'product_price <= 5000000 and product_price >= 1000000';
-						break;
-					case '5m-to-10m':
-						$wheremoney = 'product_price <= 5000000 and product_price >= 10000000';
-						break;
-					case '10m-to-15m':
-						$wheremoney = 'product_price <= 10000000 and product_price >= 15000000';
-						break;
-					case '15m+':
-						$wheremoney = 'product_price >= 15000000';
-						break;
-					default:
-						$wheremoney = 'product_price >= 0';
-						break;
-				}
-
-				// Mengatur default sorting berdasarkan nama produk
 				$sort = $_GET['sort'] ?? 'default';
 				switch ($sort) {
 					case 'newness':
@@ -505,13 +482,13 @@
 				// Memeriksa apakah ada parameter search yang dikirimkan
 				if (isset($_GET['search'])) {
 					$searchTerm = $_GET['search'];
-
+			
 					// Mengambil data produk berdasarkan pencarian
 					$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product WHERE product_name LIKE :searchTerm ORDER BY ' . $orderBy);
 					$stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
 				} else {
 					// Mengambil semua data produk
-					$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product where ' . $wheremoney ' ORDER BY ' . $orderBy);
+					$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product ORDER BY ' . $orderBy);
 				}
 
 				$stmt->execute();
@@ -533,7 +510,7 @@
 						$class = 'unisex';
 					}
 				?>
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $class; ?>">
+				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $class; ?>" data-category="<?php echo $class; ?>">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
@@ -730,44 +707,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 							
 							<!--  -->
 							<div class="p-t-33">
-								<!-- <div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Size
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Size S</option>
-												<option>Size M</option>
-												<option>Size L</option>
-												<option>Size XL</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div> -->
-<!-- 
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Red</option>
-												<option>Blue</option>
-												<option>White</option>
-												<option>Grey</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div> -->
-
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-204 flex-w flex-m respon6-next">
 										<div class="wrap-num-product flex-w m-r-20 m-tb-10">

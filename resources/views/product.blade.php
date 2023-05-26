@@ -389,37 +389,37 @@
 
 							<ul>
 								<li class="p-b-6">
-									<a href="?sort=default" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? 'default') === 'default' ? 'filter-link-active' : ''; ?>">
+									<a href="?sort=default" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? 'default') === 'default' ? 'filter-link-active' : ''; ?>">
 										All
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="?sort=newness" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'newness' ? 'filter-link-active' : ''; ?>">
+									<a href="?sort=newness" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '0m-to-1m' ? 'filter-link-active' : ''; ?>">
 										Rp. 0 - Rp. 1.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="?sort=low-to-high" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'low-to-high' ? 'filter-link-active' : ''; ?>">
+									<a href="?sort=low-to-high" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '1m-to-5m' ? 'filter-link-active' : ''; ?>">
 										Rp. 1.000.000,00 - Rp. 5.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="?sort=5m-to-10m" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === '5m-to-10m' ? 'filter-link-active' : ''; ?>">
+									<a href="?sort=5m-to-10m" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '5m-to-10m' ? 'filter-link-active' : ''; ?>">
 										Rp. 5.000.000,00 - Rp. 10.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="?sort=10m-to-15m" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === '10m-to-15m' ? 'filter-link-active' : ''; ?>">
+									<a href="?sort=10m-to-15m" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '10m-to-15m' ? 'filter-link-active' : ''; ?>">
 										Rp. 10.000.000,00 - Rp. 15.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="?sort=15m+" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === '15m+' ? 'filter-link-active' : ''; ?>">
+									<a href="?sort=15m+" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '15m+' ? 'filter-link-active' : ''; ?>">
 										Rp. 15.000.000,00+
 									</a>
 								</li>
@@ -457,52 +457,83 @@
 				</div>
 			</div>
 
-
-			
-
 			<div class="row isotope-grid">
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-					<?php
-					// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-					$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
+				<?php
+				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
+				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
 
-					// Mengatur default sorting berdasarkan nama produk
-					$sort = $_GET['sort'] ?? 'default';
-					switch ($sort) {
-						case 'newness':
-							$orderBy = 'product_id ASC';
-							break;
-						case 'low-to-high':
-							$orderBy = 'product_price ASC';
-							break;
-						case 'high-to-low':
-							$orderBy = 'product_price DESC';
-							break;
-						default:
-							$orderBy = 'product_name ASC';
-							break;
+				// Mengatur default sorting berdasarkan nama produk
+				$filter = $_GET['filter'] ?? 'default';
+				switch ($filter) {
+					case '0m-to-1m':
+						$wheremoney = 'product_price <= 1000000 and product_price >= 0';
+						break;
+					case '1m-to-5m':
+						$wheremoney = 'product_price <= 5000000 and product_price >= 1000000';
+						break;
+					case '5m-to-10m':
+						$wheremoney = 'product_price <= 5000000 and product_price >= 10000000';
+						break;
+					case '10m-to-15m':
+						$wheremoney = 'product_price <= 10000000 and product_price >= 15000000';
+						break;
+					case '15m+':
+						$wheremoney = 'product_price >= 15000000';
+						break;
+					default:
+						$wheremoney = 'product_price >= 0';
+						break;
+				}
+
+				// Mengatur default sorting berdasarkan nama produk
+				$sort = $_GET['sort'] ?? 'default';
+				switch ($sort) {
+					case 'newness':
+						$orderBy = 'product_id ASC';
+						break;
+					case 'low-to-high':
+						$orderBy = 'product_price ASC';
+						break;
+					case 'high-to-low':
+						$orderBy = 'product_price DESC';
+						break;
+					default:
+						$orderBy = 'product_name ASC';
+						break;
+				}
+
+				// Memeriksa apakah ada parameter search yang dikirimkan
+				if (isset($_GET['search'])) {
+					$searchTerm = $_GET['search'];
+
+					// Mengambil data produk berdasarkan pencarian
+					$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product WHERE product_name LIKE :searchTerm ORDER BY ' . $orderBy);
+					$stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
+				} else {
+					// Mengambil semua data produk
+					$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product where ' . $wheremoney ' ORDER BY ' . $orderBy);
+				}
+
+				$stmt->execute();
+				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+				foreach ($products as $product) {
+					$productPicture = $product['product_picture'] ?? 'default.jpg';
+					$productName = $product['product_name'] ?? '';
+					$productPrice = $product['product_price'] ?? '';
+					$category = $product['category_id'] ?? '';
+
+					// Menentukan class berdasarkan kategori produk
+					$class = '';
+					if ($category === 'F') {
+						$class = 'female';
+					} elseif ($category === 'M') {
+						$class = 'male';
+					} elseif ($category === 'U') {
+						$class = 'unisex';
 					}
-
-					// Memeriksa apakah ada parameter search yang dikirimkan
-					if (isset($_GET['search'])) {
-						$searchTerm = $_GET['search'];
-
-						// Mengambil data produk berdasarkan pencarian
-						$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price FROM product WHERE product_name LIKE :searchTerm ORDER BY ' . $orderBy);
-						$stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
-					} else {
-						// Mengambil semua data produk
-						$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price FROM product ORDER BY ' . $orderBy);
-					}
-
-					$stmt->execute();
-					$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-					foreach ($products as $product) {
-						$productPicture = $product['product_picture'] ?? 'default.jpg';
-						$productName = $product['product_name'] ?? '';
-						$productPrice = $product['product_price'] ?? '';
-					?>
+				?>
+				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $class; ?>">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
@@ -512,7 +543,7 @@
 							</a>
 						</div>
 						<div class="block2-txt flex-w flex-t p-t-14">
-							<div class="block2-txt-child1 flex-col-l ">
+							<div class="block2-txt-child1 flex-col-l">
 								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									<?php echo $productName; ?>
 								</a>
@@ -528,12 +559,12 @@
 							</div>
 						</div>
 					</div>
-					<?php
-					}
-					?>
 				</div>
+				<?php
+				}
+				?>
 			</div>
-			
+
 
 			<!-- Load more -->
 			<div class="flex-c-m flex-w w-full p-t-45">

@@ -414,7 +414,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="images/kacamata/header1.png" alt="IMG-BANNER">
 
-						<a href="{{ url('/') }}product" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="product?gender=female" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Women
@@ -493,7 +493,7 @@
 		<div class="container">
 			<div class="p-b-10">
 				<h3 class="ltext-103 cl5">
-					Product Overview
+					New Arrivals
 				</h3>
 			</div>
 
@@ -510,177 +510,16 @@
 						</button>
 					<?php endforeach; ?>
 				</div>
-
-				<div class="flex-w flex-c-m m-tb-10">
-					<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
-						<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
-						<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						 Filter
-					</div>
-
-					<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
-						<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
-						<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						Search
-					</div>
-				</div>
-				
-				<!-- Search product -->
-				<div class="dis-none panel-search w-full p-t-10 p-b-15">
-					<div class="bor8 dis-flex p-l-15">
-						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
-							<i class="zmdi zmdi-search"></i>
-						</button>
-						
-						<form method="GET" action="" class="search-form">
-							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search" placeholder="Search" value="<?php echo $_GET['search'] ?? ''; ?>">
-						</form>
-					</div>
-				</div>
-
-				<!-- Filter -->
-				<div class="dis-none panel-filter w-full p-t-10">
-					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-						<div class="filter-col1 p-r-15 p-b-27 col-md-4">
-							<div class="mtext-102 cl2 p-b-15">
-								Sort By
-							</div>
-
-							<ul>
-								<li class="p-b-6">
-									<a href="?sort=default" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? 'default') === 'default' ? 'filter-link-active' : ''; ?>">
-										Default
-									</a>
-								</li>
-								<li class="p-b-6">
-									<a href="?sort=newness" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'newness' ? 'filter-link-active' : ''; ?>">
-										Newness
-									</a>
-								</li>
-								<li class="p-b-6">
-									<a href="?sort=low-to-high" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'low-to-high' ? 'filter-link-active' : ''; ?>">
-										Price: Low to High
-									</a>
-								</li>
-								<li class="p-b-6">
-									<a href="?sort=high-to-low" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'high-to-low' ? 'filter-link-active' : ''; ?>">
-										Price: High to Low
-									</a>
-								</li>
-							</ul>
-
-
-						</div>
-
-						<div class="filter-col2 p-r-15 p-b-27 col-md-4">
-							<div class="mtext-102 cl2 p-b-15">
-								Price
-							</div>
-
-							<ul>
-								<li class="p-b-6">
-									<a href="?sort=default" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? 'default') === 'default' ? 'filter-link-active' : ''; ?>">
-										All
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="?sort=newness" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '0m-to-1m' ? 'filter-link-active' : ''; ?>">
-										Rp. 0 - Rp. 1.000.000,00
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="?sort=low-to-high" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '1m-to-5m' ? 'filter-link-active' : ''; ?>">
-										Rp. 1.000.000,00 - Rp. 5.000.000,00
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="?sort=5m-to-10m" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '5m-to-10m' ? 'filter-link-active' : ''; ?>">
-										Rp. 5.000.000,00 - Rp. 10.000.000,00
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="?sort=10m-to-15m" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '10m-to-15m' ? 'filter-link-active' : ''; ?>">
-										Rp. 10.000.000,00 - Rp. 15.000.000,00
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="?sort=15m+" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '15m+' ? 'filter-link-active' : ''; ?>">
-										Rp. 15.000.000,00+
-									</a>
-								</li>
-							</ul>
-						</div>
-
-						<div class="filter-col3 p-r-15 p-b-27 col-md-4">
-							<div class="mtext-102 cl2 p-b-15">
-								Color
-							</div>
-
-							<ul>
-								<?php
-								// Ambil data warna dari tabel product (misalnya menggunakan PDO)
-								$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
-								$stmt = $dbh->prepare('SELECT DISTINCT product_color FROM product');
-								$stmt->execute();
-								$colors = $stmt->fetchAll(PDO::FETCH_COLUMN);
-								
-								// Loop melalui setiap warna
-								foreach ($colors as $color) {
-									echo '<li class="p-b-6">';
-									echo '<span class="fs-15 lh-12 m-r-6" style="color: ' . $color . ';">';
-									echo '<i class="zmdi zmdi-circle"></i>';
-									echo '</span>';
-									echo '<a href="#" class="filter-link stext-106 trans-04">';
-									echo $color;
-									echo '</a>';
-									echo '</li>';
-								}
-								?>
-							</ul>
-						</div>						
-					</div>
-				</div>
 			</div>
 
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
+				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');				
 
-				// Mengatur default sorting berdasarkan nama produk
-				$sort = $_GET['sort'] ?? 'default';
-				switch ($sort) {
-					case 'newness':
-						$orderBy = 'product_id ASC';
-						break;
-					case 'low-to-high':
-						$orderBy = 'product_price ASC';
-						break;
-					case 'high-to-low':
-						$orderBy = 'product_price DESC';
-						break;
-					default:
-						$orderBy = 'product_name ASC';
-						break;
-				}
-
-				// Memeriksa apakah ada parameter search yang dikirimkan
-				if (isset($_GET['search'])) {
-					$searchTerm = $_GET['search'];
-
-					// Mengambil data produk berdasarkan pencarian
-					$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product WHERE product_name LIKE :searchTerm ORDER BY ' . $orderBy);
-					$stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
-				} else {
 					// Mengambil semua data produk
-					$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product ORDER BY ' . $orderBy);
-				}
-
+				$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product ORDER BY product_id ASC limit 12');
+				
 				$stmt->execute();
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -700,7 +539,7 @@
 						$class = 'unisex';
 					}
 				?>
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $class; ?>">
+				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $class; ?>" data-category="<?php echo $class; ?>">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
@@ -730,13 +569,6 @@
 				<?php
 				}
 				?>
-			</div>
-
-			<!-- Load more -->
-			<div class="flex-c-m flex-w w-full p-t-45">
-				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-					Load More
-				</a>
 			</div>
 		</div>
 	</section>

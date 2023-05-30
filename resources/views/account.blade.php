@@ -307,7 +307,7 @@
 							<button onclick="register()">Register</button>
 							<hr id="Indicator">
 						</div>
-						<form id="LoginForm" action="account_detail.html">
+						<form id="LoginForm" action="account_detail.blade.php">
 							<input type="text" placeholder="username" required>
 							<input type="password" placeholder="password" required>		
 							<div class="form-group">
@@ -316,7 +316,7 @@
 							  </div>					
 							<button type="submit" class="btn" id="btnLogin">Login</button>
 						</form>
-						<form id="RegForm" action="account_detail.html">
+						<form id="RegForm" action=" {{ route('register') }}" method="POST">
 							<input type="text" placeholder="name" required>
 							<input type="password" placeholder="password" required>
 							<input type="email" placeholder="email" required>
@@ -337,10 +337,6 @@
 			</div>
 		</div>
 	</div>
-	
-
-
-
 
 	<!-- Footer -->
 	<footer class="bg3 p-t-75 p-b-32">
@@ -512,7 +508,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		}
 		}).then((value) => {
 		if (value) {
-			window.location.href = "account_detail.html";
+			window.location.href = "account_detail";
 		}
 		});
 
@@ -536,7 +532,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		}
 		}).then((value) => {
 		if (value) {
-			window.location.href = "account_detail.html";
+			window.location.href = "account_detail";
 		}
 		});
 

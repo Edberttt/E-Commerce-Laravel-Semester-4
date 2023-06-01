@@ -270,7 +270,7 @@
 						</div>
 
 						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04 js-show-modal1">
 
 								Christian Dior F CD MYDIORO1 086 54
 							</a>
@@ -290,7 +290,7 @@
 						</div>
 
 						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04 js-show-modal1">
 
 								Tommy Hilfiger F TH 0090 J5G 52
 							</a>

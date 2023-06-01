@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Account</title>
+	<title>@yield('title')</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
 <!--===============================================================================================-->
@@ -31,14 +34,6 @@
     <!-- favicon -->
     <link href="../images/favicon (3).ico" rel="icon" class="favIcon" />
 
-<style>
-	.close {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-  }
-</style>
 </head>
 <body class="animsition">
 	
@@ -287,189 +282,9 @@
 			</div>
 		</div>
 	</div>
+@yield('content')
 
 
-	<!-- detail-account-page -->
-	<section class="py-5 my-5">
-		  
-
-		<div class="containerPage">
-			<div class="hamburger-nav">
-				<div class="hamburger-icon" onclick="toggleProfileNav()">
-				  <i class="fa fa-bars"></i>
-				</div>
-			</div>
-			<div class="bg-white shadow rounded-lg d-block d-sm-flex">
-				<div id="profileTabNavContainer" class="profile-tab-nav border-right">
-					<span class="close" onclick="closeProfileTabNav()">&times;</span>
-					<a class="account-icon" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
-						<i class="fa fa-user-circle text-black mr-1 rounded-circle"></i>
-					</a>
-					<span class="d-block mt-1">Hello {{$info['customer_firstName']}}</span>
-					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-						<a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
-							<i class="zmdi zmdi-account"></i> 
-							Account
-						</a>
-						<a class="nav-link" id="password-tab" data-toggle="pill" href="#order" role="tab" aria-controls="password" aria-selected="false">
-							<i class="zmdi zmdi-receipt"></i> 
-							Orders
-						</a>
-					</div>
-				</div>
-				<div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
-					<div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-						<h3 class="mb-4">Account Settings</h3><br>
-						<div class="form-row">
-							<div class="col-md-6 mb-3">
-								<label>First Name</label>
-								<input type="text" class="form-control" value="{{$info['customer_firstName']}}">
-							</div>
-							<div class="col-md-6 mb-3">
-								<label>Last Name</label>
-								<input type="text" class="form-control" value="{{$info['customer_lastName']}}">
-							</div>
-							<div class="col-md-6 mb-3">
-								<label>Email</label>
-								<input type="text" class="form-control" value="{{$info['customer_email']}}">
-							</div>
-							<div class="col-md-6 mb-3">
-								<label>Phone number</label>
-								<input type="text" class="form-control" value="{{$info['customer_phone']}}">
-							</div>
-							<div class="col-md-6 mb-3">
-								<label>Address</label>
-								<input type="text" class="form-control" value="{{$info['customer_address']}}">
-							</div>
-						</div>
-						<br>
-						<div>
-							<button class="btn btn-primary">Update</button>
-						</div>
-					</div>
-					  
-					<div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
-						<h3 class="mb-4">Orders</h3>
-						<div class="list-group">
-							<a href="#" class="list-group-item list-group-item-action" data-toggle="collapse" data-target="#order1" aria-expanded="false" aria-controls="order1">
-								<div class="d-flex w-100 justify-content-between">
-									<p class="mb-1">Order #202304050001 <span class="badge badge-success">Completed</span></p>
-									<small>Total: Rp. 5.980.000,00</small>
-								</div>
-							</a>
-							<div id="order1" class="collapse">
-								<div class="table-responsive">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>Product</th>
-												<th>Price</th>
-												<th>Quantity</th>
-												<th>Subtotal</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr class="table_row">
-												<td class="column-1">
-													<div class="how-itemcart1">
-														<img src="images/kacamata/product2.jpg" alt="IMG">
-													</div>
-												</td>
-												<td class="column-2">Coach HC5149T 9004 s56</td>
-												<td class="column-3">1</td>
-												<td class="column-4">Rp. 2.580.000,00</td>
-											</tr>
-			
-											<tr class="table_row">
-												<td class="column-1">
-													<div class="how-itemcart1">
-														<img src="images/kacamata/product1.jpg" alt="IMG">
-													</div>
-												</td>
-												<td class="column-2">Ray-Ban RB6503D 2509 s55</td>
-												<td class="column-3">2</td>
-												<td class="column-4">Rp. 3.400.000,00</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<!-- <div class="text-right">
-									<button class="btn btn-primary">Confirm Order</button>
-								</div> -->
-							</div>
-							<a href="#" class="list-group-item list-group-item-action" data-toggle="collapse" data-target="#order2" aria-expanded="false" aria-controls="order2">
-								<div class="d-flex w-100 justify-content-between">
-									<p class="mb-1">Order #202305050002<span class="badge badge-warning">In progress</span></p>
-									<small>Total: Rp. 6.800.000,00</small>
-								</div>
-							</a>
-							<div id="order2" class="collapse">
-								<div class="table-responsive">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>Product</th>
-												<th>Price</th>
-												<th>Quantity</th>
-												<th>Subtotal</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr class="table_row">
-												<td class="column-1">
-													<div class="how-itemcart1">
-														<img src="images/kacamata/product4.jpg" alt="IMG">
-													</div>
-												</td>
-												<td class="column-2">Oliver Peoples OV5448T 1005 s46</td>
-												<td class="column-3">1</td>
-												<td class="column-4">Rp. 6.800.000,00</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div class="text-right">
-									<button class="btn btn-primary">Confirm Order</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			<!-- </div> -->
-		</div>
-		<script>
-
-
-		function toggleProfileNav() {
-			var profileNav = document.getElementById("profileTabNavContainer");
-			var containerPage = document.getElementsByClassName("containerPage")[0];
-			var tabContent = document.getElementById("v-pills-tabContent");
-
-			if (containerPage.classList.contains("show-profile")) {
-				containerPage.classList.remove("show-profile");
-				tabContent.classList.remove("blur");
-			} else {
-				containerPage.classList.add("show-profile");
-				tabContent.classList.add("blur");
-			}
-		}
-
-		
-		function closeProfileTabNav() {
-			var profileNav = document.getElementById("profileTabNavContainer");
-			var containerPage = document.getElementsByClassName("containerPage")[0];
-			var tabContent = document.getElementById("v-pills-tabContent");
-
-			if (containerPage.classList.contains("show-profile")) {
-				containerPage.classList.remove("show-profile");
-				tabContent.classList.remove("blur");
-			} else {
-				containerPage.classList.add("show-profile");
-				tabContent.classList.add("blur");
-			}
-		}
-		</script>
-	</section>
 	<!-- Footer -->
 	<footer class="bg3 p-t-75 p-b-32">
 		<div class="container">
@@ -547,6 +362,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</footer>
+
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">
 		<span class="symbol-btn-back-to-top">
@@ -602,7 +418,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	var Indicator = document.getElementById("Indicator");
 	
 		function register(){
-
 			RegForm.style.transform = "translateX(0px)";
 			LoginForm.style.transform = "translateX(0px)";
 			Indicator.style.transform = "translateX(73px)";
@@ -614,8 +429,178 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			Indicator.style.transform = "translateX(-22px)";
 		}
 
+	</script>
+
+	<!--===============================================================================================-->
+	<script src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script>
+
+	$('.btn').on('click', function(e) {
+		e.preventDefault();
+	});
+	$('#btnLogin').each(function(){
+		$(this).on('click', function(){
+		swal({
+		icon: "success",
+		title: "Login Successful!",
+		buttons: {
+			confirm: {
+			text: "OK",
+			value: true,
+			visible: true,
+			className: "",
+			closeModal: true
+			}
+		}
+		}).then((value) => {
+		if (value) {
+			window.location.href = "account_detail";
+		}
+		});
+
+		$(this).off('click');
+	});
+	});
+
+	// $('#btnRegister').each(function(){
+	// 	$(this).on('click', function(){
+	// 	swal({ 
+	// 	icon: "success",
+	// 	title: "Register Successful!",
+	// 	buttons: {
+	// 		confirm: {
+	// 		text: "OK",
+	// 		value: true,
+	// 		visible: true,
+	// 		className: "",
+	// 		closeModal: true
+	// 		}
+	// 	}
+	// 	}).then((value) => {
+	// 	if (value) {
+	// 		window.location.href = "account_detail";
+	// 	}
+	// 	});
+
+	// 	$(this).off('click');
+	// });
+	}); 
 
 	</script>
+<!--===============================================================================================-->	
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/slick/slick.min.js"></script>
+	<script src="js/slick-custom.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/parallax100/parallax100.js"></script>
+	<script>
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+		        delegate: 'a', // the selector for gallery item
+		        type: 'image',
+		        gallery: {
+		        	enabled:true
+		        },
+		        mainClass: 'mfp-fade'
+		    });
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="vendor/isotope/isotope.pkgd.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script>
+		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(function(){
+			var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-b2');
+				$(this).off('click');
+			});
+		});
+
+		$('.js-addwish-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-detail');
+				$(this).off('click');
+			});
+		});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to cart !", "success");
+			});
+		});
+	
+	</script>
+<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			$(this).css('position','relative');
+			$(this).css('overflow','hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+<!--===============================================================================================-->
+	<script>
+		var searchInput = document.getElementById('searchInput');
+		searchInput.addEventListener('input', function() {
+			var searchTerm = searchInput.value.trim();
+
+			// Membuat URL dengan parameter search
+			var url = window.location.href.split('?')[0] + '?search=' + encodeURIComponent(searchTerm);
+
+			// Melakukan redirect ke URL dengan parameter search
+			window.location.href = url;
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
 
 </body>
 </html>

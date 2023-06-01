@@ -1,7 +1,7 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("localhost", "root", "root", "webdev");
+    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "webdev");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -515,7 +515,7 @@
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');				
+				$dbh = new PDO('mysql:host=139.255.11.84; dbname=webdev', 'student', 'isbmantap');				
 
 					// Mengambil semua data produk
 				$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product ORDER BY product_id ASC limit 12');
@@ -550,7 +550,7 @@
 						</div>
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									<?php echo $productName; ?>
 								</a>
 								<span class="stext-105 cl3">

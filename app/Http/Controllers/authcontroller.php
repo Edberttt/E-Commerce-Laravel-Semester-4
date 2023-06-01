@@ -7,7 +7,7 @@ use App\Models\Register;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+// use App\Models\Customer;
 
 
 class AuthController extends Controller
@@ -19,6 +19,7 @@ class AuthController extends Controller
         'customer_name' => 'required',
         'customer_email' => 'required|email',
         'customer_password' => 'required',
+
     ]);
 
     // Mengambil nilai dari form
@@ -72,5 +73,68 @@ class AuthController extends Controller
     return redirect('/profile');
 }
 
-    
+public function submitRegister(Request $request){
+    // $dbh = new PDO('mysql:host=139.255.11.84; dbname=webdev', 'student', 'isbmantap');
+    $register = $request->validate([
+        'customer_firstName' => 'required',
+        'customer_lastName' => 'required',
+        'customer_email' => 'required|email',
+        'customer_password' => 'required',
+        'customer_gender' => 'required'
+    ]);
+    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "webdev");
+
+    // Periksa koneksi
+    if (mysqli_connect_errno()) {
+        echo "Koneksi database gagal: " . mysqli_connect_error();
+        exit();
+    }
+    $register['customer_password'] = Hash::make($register['customer_password']);
+    $email = 'SELECT * FROM customer WHERE customer_email = "'.$register['customer_email'].'";';
+    $email = mysqli_query($conn, $email);
+    if(mysqli_num_rows($email)>0){
+        return redirect()->back()->withInput()->withErrors('Email already exists');
+    }
+    $insert = 'INSERT INTO customer (customer_firstName, customer_lastName, customer_email, customer_password, customer_gender) VALUES ("'.$register['customer_firstName'].'","'.$register['customer_lastName'].'","'.$register['customer_email'].'","'.$register['customer_password'].'","'.$register['customer_gender'].'");';
+    // dump($insert);
+    mysqli_query($conn, $insert);
+    mysqli_close($conn);
+    return redirect('/account');
+}
+
+public function submitLogin(Request $request){
+    $register = $request->validate([
+        'customer_email' => 'required|email',
+        'customer_password' => 'required',
+    ]);
+    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "webdev");
+
+    // Periksa koneksi
+    if (mysqli_connect_errno()) {
+        echo "Koneksi database gagal: " . mysqli_connect_error();
+        exit();
+    }   
+    $email = "SELECT * FROM customer WHERE customer_email = '".$register["customer_email"]."';";
+    $email = mysqli_query($conn, $email);
+    if(mysqli_num_rows($email)==0){
+            return redirect()->back()->withInput()->withErrors('Email or password is wrong');
+        }
+        $email = mysqli_fetch_all($email, MYSQLI_ASSOC);
+        // dump($email);
+        $email = $email[0];
+    $coba = Hash::check($register['customer_password'], $email['customer_password']);
+    if($coba){
+        session()->push('status', $email);
+        return redirect('/account_detail');
+    }
+    else{
+        return redirect()->back()->withInput()->withErrors('Email or password is wrong');
+    }
+
+} 
+
+public function logout(){
+    session()->forget('status');
+    return redirect('/account');
+}
 }

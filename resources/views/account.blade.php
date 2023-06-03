@@ -18,13 +18,19 @@
 
 
 	<!-- account-page -->
-	@if ($errors->any())
+
 							<ul>
+								<?php $success = $status ?? null ?>
+								@if(session('success_register'))
+								<div class="alert alert-success m-auto text-center">{{ session('success_register') }}</div>
+								@endif
+								@if ($errors->any())
 								@foreach ($errors->all() as $error)
 								<div class="alert alert-danger m-auto text-center">{{ $error }}</div>
 								@endforeach
+								@endif
 							</ul>
-					@endif
+					
 	<div class="account-page">
 	
 		<div class="container">
@@ -43,7 +49,7 @@
 							<input name="customer_email" type="text" placeholder="Email" required>
 							<input name="customer_password" type="password" placeholder="Password" required>		
 							<div class="form-group">
-								<input type="checkbox" name="remember_me" id="remember_me">
+								<input type="checkbox" name="remember_me" id="remember_me" value='1'>
 								<label for="remember_me">Remember Me</label>
 							  </div>					
 							<button type="submit" class="btn">Login</button>

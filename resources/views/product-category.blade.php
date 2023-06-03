@@ -1,7 +1,7 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+    $conn = mysqli_connect("localhost", "root", "root", "webdev");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -23,7 +23,7 @@
 ?>
 
 @extends('layout.master')
-@section('title', 'All Products')
+@section('title', $get.' Collection')
 @section('content')
 
 	
@@ -32,16 +32,18 @@
 		<div class="container">
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-						All Products
-					</button>
-
-					<!-- Membuat button berdasarkan data kategori -->
-					<?php foreach ($categories as $category): ?>
-						<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".<?= strtolower($category['category_name']) ?>">
-							<?= $category['category_name'] ?>
-						</button>
-					<?php endforeach; ?>
+                    <div class="container">
+                        <div class="p-l-25"><h1>{{$get}} Collection</h1></div> 
+                        <div class="bread-crumb flex-w p-l-27 p-t-10 p-r-15 p-lr-0-lg">
+                            <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+                                Home
+                                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+                            </a>
+                            <span class="stext-109 cl4">
+                                {{$get." Collection"}}
+                            </span>
+                        </div>
+                    </div>
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -157,7 +159,7 @@
 							<ul>
 								<?php
 								// Ambil data warna dari tabel product (misalnya menggunakan PDO)
-								$dbh = new PDO('mysql:host=139.255.11.84;dbname=ALP_HAWK', 'student', 'isbmantap');
+								$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
 								$stmt = $dbh->prepare('SELECT DISTINCT product_color FROM product');
 								$stmt->execute();
 								$colors = $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -183,7 +185,7 @@
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=139.255.11.84;dbname=ALP_HAWK', 'student', 'isbmantap');
+				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
 
 				// Mengatur default sorting berdasarkan nama produk
 				$sort = $_GET['sort'] ?? 'default';
@@ -211,15 +213,14 @@
 					$stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
 				} else {
 					// Mengambil semua data produk
-					$stmt = $dbh->prepare('SELECT * FROM product ORDER BY ' . $orderBy);
+					$stmt = $dbh->prepare('SELECT * FROM product WHERE category_id = :cat ORDER BY ' . $orderBy);
+                    $stmt->bindValue(':cat', $cat);
 				}
 
 				$stmt->execute();
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-				$counter = 1;
+
 				foreach ($products as $product) {
-					if($counter>$load) break;
-					$counter+=1;
 					$productPicture = $product['product_picture'] ?? 'default.jpg';
 					$productName = $product['product_name'] ?? '';
 					$productPrice = $product['product_price'] ?? '';
@@ -241,7 +242,7 @@
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-							<img src="<?php echo $productPicture; ?>" alt="IMG-PRODUCT">
+							<img src="/<?php echo $productPicture; ?>" alt="IMG-PRODUCT">
 							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04" id="{{'myBtn'.$productId}}">
 								Quick View
 							</a>
@@ -257,8 +258,8 @@
 							</div>
 							<div class="block2-txt-child2 flex-r p-t-3">
 								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+									<img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON">
 								</a>
 							</div>
 						</div>
@@ -300,7 +301,7 @@
 
 													<!-- <div class="item-slick3" data-thumb="images/kacamata/quickview2.jpg">
 														<div class="wrap-pic-w pos-relative">
-															<img src="images/kacamata/quickview2.jpg" alt="IMG-PRODUCT">
+															<img src="/images/kacamata/quickview2.jpg" alt="IMG-PRODUCT">
 
 															<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/kacamata/quickview2.jpg">
 																<i class="fa fa-expand"></i>
@@ -310,7 +311,7 @@
 
 													<div class="item-slick3" data-thumb="images/kacamata/quickview1.jpg">
 														<div class="wrap-pic-w pos-relative">
-															<img src="images/kacamata/quickview1.jpg" alt="IMG-PRODUCT">
+															<img src="/images/kacamata/quickview1.jpg" alt="IMG-PRODUCT">
 
 															<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/kacamata/quickview1.jpg">
 																<i class="fa fa-expand"></i>
@@ -400,16 +401,11 @@
 
 
 			<!-- Load more -->
-			@if($load==8)
 			<div class="flex-c-m flex-w w-full p-t-45">
-				<form method="post" action="{{url('/product')}}">
-					@csrf
-				<button type="submit" name="submit" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
 					Load More
-				</button>
-				</form>
+				</a>
 			</div>
-			@endif
 		</div>
 	</div>
 		
@@ -430,7 +426,7 @@
 		<div class="container">
 			<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
 				<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-					<img src="images/icons/icon-close.png" alt="CLOSE">
+					<img src="/images/icons/icon-close.png" alt="CLOSE">
 				</button>
 
 				<div class="row">
@@ -443,7 +439,7 @@
 								<div class="slick3 gallery-lb">
 									<div class="item-slick3" data-thumb="images/kacamata/quickview3.jpg">
 										<div class="wrap-pic-w pos-relative">
-											<img src="images/kacamata/quickview3.jpg" alt="IMG-PRODUCT">
+											<img src="/images/kacamata/quickview3.jpg" alt="IMG-PRODUCT">
 
 											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/kacamata/quickview3.jpg">
 												<i class="fa fa-expand"></i>
@@ -453,7 +449,7 @@
 
 									<!-- <div class="item-slick3" data-thumb="images/kacamata/quickview2.jpg">
 										<div class="wrap-pic-w pos-relative">
-											<img src="images/kacamata/quickview2.jpg" alt="IMG-PRODUCT">
+											<img src="/images/kacamata/quickview2.jpg" alt="IMG-PRODUCT">
 
 											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/kacamata/quickview2.jpg">
 												<i class="fa fa-expand"></i>
@@ -463,7 +459,7 @@
 
 									<div class="item-slick3" data-thumb="images/kacamata/quickview1.jpg">
 										<div class="wrap-pic-w pos-relative">
-											<img src="images/kacamata/quickview1.jpg" alt="IMG-PRODUCT">
+											<img src="/images/kacamata/quickview1.jpg" alt="IMG-PRODUCT">
 
 											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/kacamata/quickview1.jpg">
 												<i class="fa fa-expand"></i>

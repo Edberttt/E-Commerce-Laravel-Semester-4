@@ -12,69 +12,180 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-  public function register(Request $request)
-{
-    // Validasi form
-    $this->validate($request, [
-        'customer_name' => 'required',
-        'customer_email' => 'required|email',
-        'customer_password' => 'required',
-
-    ]);
-
-    // Mengambil nilai dari form
-    $name = $request->input('customer_name');
-    $email = $request->input('customer_email');
-    $password = $request->input('customer_password');
-
-    // Check if customer email already exists
-    $existingCustomer = Register::where('customer_email', $email)->first();
-    if ($existingCustomer) {
-        // Jika email sudah terdaftar, kirimkan pesan kesalahan
-        return redirect()->back()->withInput()->withErrors('Email already exists');
+    public function generate_tokens(): array
+    {
+        $selector = bin2hex(random_bytes(16));
+        $validator = bin2hex(random_bytes(32));
+    
+        return [$selector, $validator, $selector . ':' . $validator];
     }
 
-    // Mengambil customer_id terakhir
-    $lastCustomerId = DB::table('customer')
-        ->select('customer_id')
-        ->orderBy('customer_id', 'desc')
-        ->limit(1)
-        ->value('customer_id');
-
-    // Menginisialisasi nomor awal
-    $newNumber = 1;
-
-    if ($lastCustomerId) {
-        // Jika ada customer sebelumnya, ambil nomor dari customer_id terakhir
-        $lastNumber = (int) substr($lastCustomerId, 1);
-
-        // Increment nomor
-        $newNumber = $lastNumber + 1;
+    public function parse_token(string $token): ?array
+    {
+        $parts = explode(':', $token);
+    
+        if ($parts && count($parts) == 2) {
+            return [$parts[0], $parts[1]];
+        }
+        return null;
     }
 
-    // Format nomor dengan nol di depan
-    $formattedNumber = str_pad($newNumber, 5, '0', STR_PAD_LEFT);
+    public function insert_user_token(string $user_id, string $selector, string $hashed_validator, string $expiry): bool
+    {
+        $sql = 'INSERT INTO user_tokens(user_id, selector, hashed_validator, expiry)
+                VALUES(?, ?, ?, ?)';
+        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
 
-    // Gabungkan dengan prefix "C" untuk customer_id baru
-    $newCustomerId = 'C' . $formattedNumber;
+        // Periksa koneksi
+            if (mysqli_connect_errno()) {
+                echo "Koneksi database gagal: " . mysqli_connect_error();
+                exit();
+            }
+        $statement = $conn->prepare($sql);
+        $statement->bind_param('ssss', $user_id, $selector, $hashed_validator, $expiry);
+    
+        return $statement->execute();
+    }
 
-    // Buat instansi model Customer
-    $customer = new Register();
-    $customer->customer_id = $newCustomerId;
-    $customer->customer_name = $name;
-    $customer->customer_email = $email;
-    $customer->customer_password = $password;
-    $customer->delete_customer = 0;
+    public function find_user_token_by_selector(string $selector)
+    {
+    
+        $sql = 'SELECT id, selector, hashed_validator, user_id, expiry
+                    FROM user_tokens
+                    WHERE selector = ? AND
+                        expiry >= now()
+                    LIMIT 1';
+        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
 
-    // Simpan data pengguna ke dalam tabel "customer"
-    $customer->save();
+        // Periksa koneksi
+            if (mysqli_connect_errno()) {
+                echo "Koneksi database gagal: " . mysqli_connect_error();
+                exit();
+            }
+        $statement = $conn->prepare($sql);
+        $statement->bind_param('s', $selector);
+    
+        $statement->execute();
+    
+        $result = $statement->get_result();
+        $row = $result->fetch_assoc();
 
-    // Redirect ke halaman sukses pendaftaran
-    return redirect('/profile');
-}
+        return $row;
+    }
+
+    public function delete_user_token(string $user_id): bool
+    {
+        $sql = 'DELETE FROM user_tokens WHERE user_id = ?';
+        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+
+        // Periksa koneksi
+            if (mysqli_connect_errno()) {
+                echo "Koneksi database gagal: " . mysqli_connect_error();
+                exit();
+            }
+        $statement = $conn->prepare($sql);
+        $statement->bind_param('s', $user_id);
+    
+        return $statement->execute();
+    }
+
+    public function find_user_by_token(string $token)
+    {
+        $tokens = $this->parse_token($token);
+    
+        if (!$tokens) {
+            return null;
+        }
+    
+        $sql = 'SELECT *
+                FROM customers
+                INNER JOIN user_tokens ON user_id = customers.customer_id
+                WHERE selector = ? AND
+                    expiry > now()
+                LIMIT 1';
+        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+
+        // Periksa koneksi
+            if (mysqli_connect_errno()) {
+                echo "Koneksi database gagal: " . mysqli_connect_error();
+                exit();
+            }
+        $statement = $conn->prepare($sql);
+        $statement->bind_param('s', $tokens[0]);
+        $statement->execute();
+    
+        $result = $statement->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row;
+    }
+
+    public function token_is_valid(string $token): bool { // parse the token to get the selector and validator 
+        [$selector, $validator] = $this->parse_token($token);
+
+        $tokens = $this->find_user_token_by_selector($selector);
+        if (!$tokens) {
+            return false;
+        }
+        
+        return password_verify($validator, $tokens['hashed_validator']);
+    }
+
+    public function remember_me(string $user_id, int $day = 7)
+    {
+        [$selector, $validator, $token] = $this->generate_tokens();
+    
+        // remove all existing token associated with the user id
+        $this->delete_user_token($user_id);
+    
+        // set expiration date
+        $expired_seconds = time() + 60 * 60 * 24 * $day;
+    
+        // insert a token to the database
+        $hash_validator = password_hash($validator, PASSWORD_DEFAULT);
+        $expiry = date('Y-m-d H:i:s', $expired_seconds);
+    
+        if ($this->insert_user_token($user_id, $selector, $hash_validator, $expiry)) {
+            setcookie('remember_me', $token, $expired_seconds);
+        }
+    }
+    public function is_user_logged_in(): bool
+    {
+        // check the session
+        if (isset($_SESSION['status'])) {
+            return true;
+        }
+    
+        // check the remember_me in cookie
+        $token = filter_input(INPUT_COOKIE, 'remember_me', FILTER_SANITIZE_STRING);
+    
+        if ($token && $this->token_is_valid($token)) {
+    
+            $user = $this->find_user_by_token($token);
+    
+            if ($user) {
+                return $this->log_user_in($user);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * log a user in
+     * @param array $user
+     * @return bool
+     */
+    public function log_user_in(array $user): bool
+    {
+        // prevent session fixation attack
+            // set username & id in the sessiond
+            $info = Customer::where('customer_id', $user['user_id'])->first()->getAttributes();
+            session()->push('status', $info);
+            return true;
+    }
 
 public function submitRegister(Request $request){
-    // $dbh = new PDO('mysql:host=139.255.11.84; dbname=webdev', 'student', 'isbmantap');
+    // $dbh = new PDO('mysql:host=139.255.11.84; dbname=ALP_HAWK', 'student', 'isbmantap');
     $register = $request->validate([
         'customer_firstName' => 'required',
         'customer_lastName' => 'required',
@@ -82,7 +193,7 @@ public function submitRegister(Request $request){
         'customer_password' => 'required',
         'customer_gender' => 'required'
     ]);
-    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "webdev");
+    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -90,42 +201,48 @@ public function submitRegister(Request $request){
         exit();
     }
     $register['customer_password'] = Hash::make($register['customer_password']);
-    $email = 'SELECT * FROM customer WHERE customer_email = "'.$register['customer_email'].'";';
+    $email = 'SELECT * FROM customers WHERE customer_email = "'.$register['customer_email'].'";';
     $email = mysqli_query($conn, $email);
     if(mysqli_num_rows($email)>0){
         return redirect()->back()->withInput()->withErrors('Email already exists');
     }
-    $insert = 'INSERT INTO customer (customer_firstName, customer_lastName, customer_email, customer_password, customer_gender) VALUES ("'.$register['customer_firstName'].'","'.$register['customer_lastName'].'","'.$register['customer_email'].'","'.$register['customer_password'].'","'.$register['customer_gender'].'");';
+    $insert = 'INSERT INTO customers (customer_firstName, customer_lastName, customer_email, customer_password, customer_gender) VALUES ("'.$register['customer_firstName'].'","'.$register['customer_lastName'].'","'.$register['customer_email'].'","'.$register['customer_password'].'","'.$register['customer_gender'].'");';
     // dump($insert);
     mysqli_query($conn, $insert);
     mysqli_close($conn);
-    return redirect('/account');
+    return redirect('/account')->with('success_register', 'Register successful!');
 }
 
 public function submitLogin(Request $request){
     $register = $request->validate([
         'customer_email' => 'required|email',
         'customer_password' => 'required',
+        'remember_me' => ''
     ]);
-    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "webdev");
+    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
         echo "Koneksi database gagal: " . mysqli_connect_error();
         exit();
     }   
-    $email = "SELECT * FROM customer WHERE customer_email = '".$register["customer_email"]."';";
+
+    
+    $email = "SELECT * FROM customers WHERE customer_email = '".$register["customer_email"]."';";
     $email = mysqli_query($conn, $email);
     if(mysqli_num_rows($email)==0){
-            return redirect()->back()->withInput()->withErrors('Email or password is wrong');
-        }
-        $email = mysqli_fetch_all($email, MYSQLI_ASSOC);
-        // dump($email);
-        $email = $email[0];
+        return redirect()->back()->withInput()->withErrors('Email or password is wrong');
+    }
+    $email = mysqli_fetch_all($email, MYSQLI_ASSOC);
+    // dump($email);
+    $email = $email[0];
     $coba = Hash::check($register['customer_password'], $email['customer_password']);
+    if(isset($register['remember_me'])){
+        $this->remember_me($email['customer_id']); // ini untuk mbuat token di browser supaya remember me
+    }
     if($coba){
         session()->push('status', $email);
-        return redirect('/account_detail');
+        return redirect('/');
     }
     else{
         return redirect()->back()->withInput()->withErrors('Email or password is wrong');
@@ -134,7 +251,21 @@ public function submitLogin(Request $request){
 } 
 
 public function logout(){
+    // dump(session('status'));
+    $this->delete_user_token(session('status')[0]['customer_id']); // destroy remember me
     session()->forget('status');
+    \Cookie::queue(\Cookie::forget('myCookie')); // forget buat di browser masing masing
     return redirect('/account');
+}
+
+// dua fungsi di bawah untuk otomatis log in kalau sudah remember me 
+public function account(){
+    if($this->is_user_logged_in()) return redirect('/');
+    return view('account');
+}
+
+public function home(){
+    $this->is_user_logged_in();
+    return view('index');
 }
 }

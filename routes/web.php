@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authcontroller;
 use App\Http\Controllers\AccountController;
@@ -15,18 +16,17 @@ use App\Http\Controllers\AccountController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [authcontroller::class, 'home']);
 
 Route::middleware('authsession')->group(function(){
     Route::get('/wishlist-detail', function () {
         return view('wishlist-detail');
     });
     
-    Route::get('/product', function () {
-        return view('product');
+    Route::get('/product', function(){
+        return view('product')->with('load', 8);
     });
+    Route::post('/product', [PageController::class, 'product']);
     
     Route::get('/about', function () {
         return view('about');
@@ -36,17 +36,16 @@ Route::middleware('authsession')->group(function(){
         return view('checkout');
     });
     
-    Route::get('/product-detail', function () {
-        return view('product-detail');
-    });
+    Route::get('/product-detail/{get}', [PageController::class, 'productDetail'])->name('product-detail');
+    Route::get('/product/{get}', [PageController::class, 'productCategory'])->name('product-category');
     
     Route::get('/shoping-cart', function () {
         return view('shoping-cart');
     });
     
     Route::get('/account_detail', [AccountController::class, 'accountDetail']);
+    Route::post('/account_update', [AccountController::class, 'accountUpdate']);
 
-    
     Route::get('/blog-detail', function () {
         return view('blog-detail');
     });
@@ -64,9 +63,8 @@ Route::middleware('authsession')->group(function(){
     });
 });
 
-Route::get('/account', function () {
-    return view('account');
-})->name('account');
+Route::get('/account', [authcontroller::class, 'account'])->name('account');
+
 Route::post('/submit_register', [authcontroller::class, 'submitRegister']);
 Route::post('/submit_login', [authcontroller::class, 'submitLogin']);
 Route::get('/logout', [authcontroller::class, 'logout']);

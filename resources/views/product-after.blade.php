@@ -338,7 +338,7 @@
 					<div class="block2">
 						<div class="block2-pic hov-img0">
 							<img src="<?php echo $productPicture; ?>" alt="IMG-PRODUCT">
-							<button type="button" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" data-toggle="modal" data-target="{{'#myModal'.$productId}}" data-show="true">
+							<button id ="{{'myBtn'.$productId}}" type="button" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04" >
 								Quick View
 				</button>
 						</div>
@@ -361,7 +361,8 @@
 					</div>
 				</div>
 					<!-- Modal1 -->
-	<div class="modal" id='{{"myModal".$productId}}'>
+					<div class="modal fade" id="{{'myModal'.$productId}}">
+		<div class="modal-content">
 
 		<div class="container">
 			<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
@@ -376,7 +377,7 @@
 								<div class="wrap-slick3-dots"></div>
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
-								<div class="slick3 gallery-lb">
+								<div class="">
 									<div class="item-slick3" data-thumb="images/kacamata/quickview3.jpg">
 										<div class="wrap-pic-w pos-relative">
 											<img src="images/kacamata/quickview3.jpg" alt="IMG-PRODUCT">
@@ -387,7 +388,7 @@
 										</div>
 									</div>
 
-									<div class="item-slick3" data-thumb="images/kacamata/quickview2.jpg">
+									<!-- <div class="item-slick3" data-thumb="images/kacamata/quickview2.jpg">
 										<div class="wrap-pic-w pos-relative">
 											<img src="images/kacamata/quickview2.jpg" alt="IMG-PRODUCT">
 
@@ -405,7 +406,7 @@
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -414,11 +415,11 @@
 					<div class="col-md-6 col-lg-5 p-b-30">
 						<div class="p-r-50 p-t-5 p-lr-0-lg">
 							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								
+								Coach HC5149T 9004 s56
 							</h4>
 
 							<span class="mtext-106 cl2">
-								{{$productPrice}}
+								Rp. 2.584.000,00
 							</span>
 
 							<p class="stext-102 cl3 p-t-23">
@@ -473,8 +474,15 @@
 				</div>
 			</div>
 		</div>
+		</div>
 	</div>
-				</div>
+	<script>
+$(document).ready(function(){
+  $("{{'#myBtn'.$productId}}").click(function(){
+    $("{{'#myModal'.$productId}}").modal({backdrop: true});
+  });
+});
+</script>
 				<?php
 				}
 				?>
@@ -491,92 +499,6 @@
 	</div>
 		
 
-	<!-- Footer -->
-	<footer class="bg3 p-t-75 p-b-32">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6 col-lg-3 p-b-50">
-					
-				</div>
-
-				<div class="col-sm-6 col-lg-3 p-b-50">
-					<h4 class="stext-301 cl0 p-b-30">
-						Categories
-					</h4>
-
-					<ul>
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Women
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Men
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Unisex
-							</a>
-						</li>
-					</ul>
-				</div>
-
-				<div class="col-sm-6 col-lg-3 p-b-50">
-					<h4 class="stext-301 cl0 p-b-30">
-						GET IN TOUCH
-					</h4>
-
-					<p class="stext-107 cl7 size-201">
-						Any questions? Let us know in store at Ciputra University or call us on (+62) 85967833065
-					</p>
-
-					<div class="p-t-27">
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-facebook"></i>
-						</a>
-
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-instagram"></i>
-						</a>
-
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-pinterest-p"></i>
-						</a>
-					</div>
-				</div>
-
-				<div class="col-sm-6 col-lg-3 p-b-50">
-					
-				</div>
-			</div>
-
-			<div class="p-t-40">
-				<div class="flex-c-m flex-w p-b-18">
-					
-				</div>
-
-				<p class="stext-107 cl6 txt-center">
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
-				</p>
-			</div>
-		</div>
-	</footer>
-
-
-	<!-- Back to top -->
-	<div class="btn-back-to-top" id="myBtn">
-		<span class="symbol-btn-back-to-top">
-			<i class="zmdi zmdi-chevron-up"></i>
-		</span>
-	</div>
-
-
+	
 
 @endsection

@@ -1,7 +1,7 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "webdev");
+    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -28,6 +28,33 @@
 	<title>Home</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="/images/icons/favicon.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+<!--===============================================================================================-->
 <!--===============================================================================================-->	
 	<!-- <link rel="icon" type="image/png" href="images/icons/favicon.png"/> -->
 	<link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.png') }}">
@@ -125,6 +152,7 @@
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
+						@if(session()->has('status'))
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="3">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
@@ -132,8 +160,8 @@
 						<a href="{{ url('/') }}/wishlist-detail" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="2">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
-
-						<a href="{{ url('/') }}/account" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
+						@endif
+						<a href="{{ url('/') }}/account_detail" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
 							<i class="zmdi zmdi-account"></i>
 						</a>		  
 					</div>
@@ -154,16 +182,16 @@
 				<form>
 					<input type="text" placeholder="Search">
 				</form>
-				
+				@if(session()->has('status'))
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="3">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
-
+				@endif
 				<a href="{{ url('/') }}/wishlist-detail" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="2">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 
-				<a href="{{ url('/') }}/account" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
+				<a href="{{ url('/') }}/account_detail" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
 					<i class="zmdi zmdi-account"></i>
 				</a>
 
@@ -345,7 +373,7 @@
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="/product/Women" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
 							</div>
@@ -369,7 +397,7 @@
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
-								<a href="product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="/product/Men" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
 							</div>
@@ -393,7 +421,7 @@
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-								<a href="}product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="/product/Unisex" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
 							</div>
@@ -414,7 +442,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="images/kacamata/header1.png" alt="IMG-BANNER">
 
-						<a href="product?gender=female" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="/product/Women" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Women
@@ -439,7 +467,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="images/kacamata/header3.png" alt="IMG-BANNER">
 
-						<a href="{{ url('/') }}/product" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{{ url('/') }}/product/Men" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Men
@@ -464,7 +492,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="images/kacamata/header2.png" alt="IMG-BANNER">
 
-						<a href="{{ url('/') }}/product" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{{ url('/') }}/product/Unisex" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Unisex
@@ -515,10 +543,10 @@
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=139.255.11.84; dbname=webdev', 'student', 'isbmantap');				
+				$dbh = new PDO('mysql:host=139.255.11.84; dbname=ALP_HAWK', 'student', 'isbmantap');				
 
 					// Mengambil semua data produk
-				$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product ORDER BY product_id ASC limit 12');
+				$stmt = $dbh->prepare('SELECT * FROM product ORDER BY product_id ASC limit 12');
 				
 				$stmt->execute();
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -528,6 +556,7 @@
 					$productName = $product['product_name'] ?? '';
 					$productPrice = $product['product_price'] ?? '';
 					$category = $product['category_id'] ?? '';
+					$productId = $product['product_id'];
 
 					// Menentukan class berdasarkan kategori produk
 					$class = '';
@@ -544,17 +573,17 @@
 					<div class="block2">
 						<div class="block2-pic hov-img0">
 							<img src="<?php echo $productPicture; ?>" alt="IMG-PRODUCT">
-							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04" id="{{'myBtn'.$productId}}">
 								Quick View
 							</a>
 						</div>
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l">
-								<a href="product-detail" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="{{url('product-detail/'.$productId)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									<?php echo $productName; ?>
 								</a>
 								<span class="stext-105 cl3">
-									Rp. <?php echo $productPrice; ?>
+									Rp. {{number_format($productPrice , 2, ',', '.')}}
 								</span>
 							</div>
 							<div class="block2-txt-child2 flex-r p-t-3">
@@ -566,6 +595,135 @@
 						</div>
 					</div>
 				</div>
+				<!-- Modal1 -->
+				<style>
+					.modal-backdrop {
+						z-index: 100000 !important;
+					}
+
+					.modal {
+						z-index: 100001 !important;
+					}
+				</style>
+				<div class="p-t-60 p-b-20 modal fade m-auto" id="{{'myModal'.$productId}}" role="dialog">
+					<div class="modal-dialog modal-xl modal-dialog-centered">
+
+						<div class="container modal-content">
+							<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+
+								<div class="row">
+									<div class="col-md-6 col-lg-7 p-b-30">
+										<div class="p-l-25 p-r-30 p-lr-0-lg">
+											<div class="wrap-slick3 flex-sb flex-w">
+												<div class="wrap-slick3-dots"></div>
+												<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+												<div class="">
+													<div class="item-slick3" data-thumb="images/kacamata/quickview3.jpg">
+														<div class="wrap-pic-w pos-relative">
+															<img src="/{{$productPicture}}" alt="IMG-PRODUCT">
+
+															<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$productPicture}}">
+																<i class="fa fa-expand"></i>
+															</a>
+														</div>
+													</div>
+
+													<!-- <div class="item-slick3" data-thumb="images/kacamata/quickview2.jpg">
+														<div class="wrap-pic-w pos-relative">
+															<img src="images/kacamata/quickview2.jpg" alt="IMG-PRODUCT">
+
+															<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/kacamata/quickview2.jpg">
+																<i class="fa fa-expand"></i>
+															</a>
+														</div>
+													</div>
+
+													<div class="item-slick3" data-thumb="images/kacamata/quickview1.jpg">
+														<div class="wrap-pic-w pos-relative">
+															<img src="images/kacamata/quickview1.jpg" alt="IMG-PRODUCT">
+
+															<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/kacamata/quickview1.jpg">
+																<i class="fa fa-expand"></i>
+															</a>
+														</div>
+													</div> -->
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-6 col-lg-5 p-b-30">
+										<div class="p-r-50 p-t-5 p-lr-0-lg">
+											<h4 class="mtext-105 cl2 js-name-detail p-b-14">
+												{{$productName}}
+											</h4>
+
+											<span class="mtext-106 cl2">
+												Rp. {{number_format($productPrice , 2, ',', '.')}}
+											</span>
+
+											<p class="stext-102 cl3 p-t-23">
+												{{$product['copywriting1']}}
+											</p>
+											
+											<!--  -->
+											<div class="">
+												<div class="flex-w flex-r-m p-b-10">
+													<div class="size-204 flex-w flex-m respon6-next">
+														<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+															<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+																<i class="fs-16 zmdi zmdi-minus"></i>
+															</div>
+
+															<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="0">
+
+															<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+																<i class="fs-16 zmdi zmdi-plus"></i>
+															</div>
+														</div>
+														<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+															Add to cart
+														</button>
+													</div>
+												</div>	
+											</div>
+
+											<!--  -->
+											<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+												<div class="flex-m bor9 p-r-10 m-r-11">
+													<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+														<i class="zmdi zmdi-favorite"></i>
+													</a>
+												</div>
+
+												<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+													<i class="fa fa-facebook"></i>
+												</a>
+
+												<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+													<i class="fa fa-twitter"></i>
+												</a>
+
+												<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+													<i class="fa fa-google-plus"></i>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<script>
+					$(document).ready(function(){
+					$("#myBtn{{$productId}}").click(function(e){
+   						e.preventDefault();	
+						$("#myModal{{$productId}}").modal({backdrop: true});
+					});
+					});
+				</script>
 				<?php
 				}
 				?>
@@ -589,19 +747,19 @@
 
 					<ul>
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="/product/Women" class="stext-107 cl7 hov-cl1 trans-04">
 								Women
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="/product/Men" class="stext-107 cl7 hov-cl1 trans-04">
 								Men
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="/product/Unisex" class="stext-107 cl7 hov-cl1 trans-04">
 								Unisex
 							</a>
 						</li>
@@ -815,14 +973,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 
 <!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
+	<script src="/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/vendor/bootstrap/js/popper.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
+	<script src="/vendor/select2/select2.min.js"></script>
 	<script>
 		$(".js-select2").each(function(){
 			$(this).select2({
@@ -832,18 +990,135 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		})
 	</script>
 <!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/slick/slick.min.js"></script>
-	<script src="js/slick-custom.js"></script>
+	<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			$(this).css('position','relative');
+			$(this).css('overflow','hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
 <!--===============================================================================================-->
-	<script src="vendor/parallax100/parallax100.js"></script>
+	<script src="/js/main.js"></script>
+
+
+<!-- js for toggle Form -->
+
+	<script>
+	var LoginForm = document.getElementById("LoginForm");
+	var RegForm = document.getElementById("RegForm");
+	var Indicator = document.getElementById("Indicator");
+	
+		function register(){
+			RegForm.style.transform = "translateX(0px)";
+			LoginForm.style.transform = "translateX(0px)";
+			Indicator.style.transform = "translateX(73px)";
+		}
+		function login(){
+
+			RegForm.style.transform = "translateX(300px)";
+			LoginForm.style.transform = "translateX(300px)";
+			Indicator.style.transform = "translateX(-22px)";
+		}
+
+	</script>
+
+	<!--===============================================================================================-->
+	<script src="/vendor/sweetalert/sweetalert.min.js"></script>
+	<!-- <script>
+
+	$('.btn').on('click', function(e) {
+		e.preventDefault();
+	});
+	$('#btnLogin').each(function(){
+		$(this).on('click', function(){
+		swal({
+		icon: "success",
+		title: "Login Successful!",
+		buttons: {
+			confirm: {
+			text: "OK",
+			value: true,
+			visible: true,
+			className: "",
+			closeModal: true
+			}
+		}
+		}).then((value) => {
+		if (value) {
+			window.location.href = "account_detail";
+		}
+		});
+
+		$(this).off('click');
+	});
+	});
+
+	// $('#btnRegister').each(function(){
+	// 	$(this).on('click', function(){
+	// 	swal({ 
+	// 	icon: "success",
+	// 	title: "Register Successful!",
+	// 	buttons: {
+	// 		confirm: {
+	// 		text: "OK",
+	// 		value: true,
+	// 		visible: true,
+	// 		className: "",
+	// 		closeModal: true
+	// 		}
+	// 	}
+	// 	}).then((value) => {
+	// 	if (value) {
+	// 		window.location.href = "account_detail";
+	// 	}
+	// 	});
+
+	// 	$(this).off('click');
+	// });
+	// }); 
+
+	</script> -->
+<!--===============================================================================================-->	
+<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/bootstrap/js/popper.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/slick/slick.min.js"></script>
+	<script src="/js/slick-custom.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/parallax100/parallax100.js"></script>
 	<script>
         $('.parallax100').parallax100();
 	</script>
 <!--===============================================================================================-->
-	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script src="/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
 	<script>
 		$('.gallery-lb').each(function() { // the containers for all your galleries
 			$(this).magnificPopup({
@@ -857,11 +1132,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		});
 	</script>
 <!--===============================================================================================-->
-	<script src="vendor/isotope/isotope.pkgd.min.js"></script>
+	<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script src="/vendor/sweetalert/sweetalert.min.js"></script>
 	<script>
-		$('.js-addwish-b2').on('click', function(e){
+		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
 			e.preventDefault();
 		});
 
@@ -897,7 +1172,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	
 	</script>
 <!--===============================================================================================-->
-	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
 		$('.js-pscroll').each(function(){
 			$(this).css('position','relative');
@@ -914,6 +1189,20 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		});
 	</script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
+	<script>
+		var searchInput = document.getElementById('searchInput');
+		searchInput.addEventListener('input', function() {
+			var searchTerm = searchInput.value.trim();
+
+			// Membuat URL dengan parameter search
+			var url = window.location.href.split('?')[0] + '?search=' + encodeURIComponent(searchTerm);
+
+			// Melakukan redirect ke URL dengan parameter search
+			window.location.href = url;
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="/js/main.js"></script>
+
 </body>
 </html>

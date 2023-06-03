@@ -241,7 +241,7 @@
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-							<img src="<?php echo $productPicture; ?>" alt="IMG-PRODUCT">
+							<img src="/{{$product['product_picture']}}" alt="">
 							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04" id="{{'myBtn'.$productId}}">
 								Quick View
 							</a>
@@ -290,9 +290,9 @@
 												<div class="">
 													<div class="item-slick3" data-thumb="images/kacamata/quickview3.jpg">
 														<div class="wrap-pic-w pos-relative">
-															<img src="/{{$productPicture}}" alt="IMG-PRODUCT">
+															<img src="<?php echo $productPicture; ?>" alt="IMG-PRODUCT">
 
-															<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$productPicture}}">
+															<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$product['product_picture']}}">
 																<i class="fa fa-expand"></i>
 															</a>
 														</div>
@@ -333,7 +333,7 @@
 											</span>
 
 											<p class="stext-102 cl3 p-t-23">
-												Upgrade your style with confidence with the {{$productName}} Eyeglasses.
+												{{$product['copywriting1']}}
 											</p>
 											
 											<!--  -->

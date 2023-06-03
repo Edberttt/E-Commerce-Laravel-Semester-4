@@ -1,7 +1,7 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("localhost", "root", "root", "webdev");
+    $conn = mysqli_connect("localhost", "root", "", "webdev");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -515,7 +515,7 @@
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');				
+				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', '');				
 
 					// Mengambil semua data produk
 				$stmt = $dbh->prepare('SELECT product_picture, product_name, product_price, category_id FROM product ORDER BY product_id ASC limit 12');

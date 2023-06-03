@@ -1,7 +1,7 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("localhost", "root", "root", "webdev");
+    $conn = mysqli_connect("localhost", "root", "", "webdev");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -434,7 +434,7 @@
 							<ul>
 								<?php
 								// Ambil data warna dari tabel product (misalnya menggunakan PDO)
-								$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
+								$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', '');
 								$stmt = $dbh->prepare('SELECT DISTINCT product_color FROM product');
 								$stmt->execute();
 								$colors = $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -460,7 +460,7 @@
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
+				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', '');
 
 				// Mengatur default sorting berdasarkan nama produk
 				$sort = $_GET['sort'] ?? 'default';
@@ -521,7 +521,7 @@
 						</div>
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="{{ url('/') }}/product-detail" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									<?php echo $productName; ?>
 								</a>
 								<span class="stext-105 cl3">
@@ -835,6 +835,77 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				swal(nameProduct, "is added to cart !", "success");
 			});
 		});
+
+		//ADD TO WISHLIST 
+		// $('.js-addwish-b2, .js-addwish-detail').on('click', function(e) {
+		// e.preventDefault();
+
+		// // Get the product data
+		// var productData = {
+		// 	name: $(this).parent().parent().find('.js-name-b2').html(),
+		// 	// Include other relevant product data
+		// };
+
+		// // Get the existing wishlist data or initialize an empty array
+		// var wishlistData = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+		// // Add the selected product to the wishlist data
+		// wishlistData.push(productData);
+
+		// // Store the updated wishlist data in localStorage
+		// localStorage.setItem('wishlist', JSON.stringify(wishlistData));
+
+		// // Display a success message
+		// swal(productData.name, "is added to wishlist!", "success");
+
+		// // Update the UI as needed
+		// $(this).addClass('js-addedwish-b2');
+		// $(this).off('click');
+		// });
+
+		// $('.js-addwish-b2, .js-addwish-detail').on('click', function(e) {
+		// 	e.preventDefault();
+
+		// 	var $productRow = $(this).closest('.table_row');
+		// 	var productData = {
+		// 		image: $productRow.find('.column-1 img').attr('src'),
+		// 		name: $productRow.find('.column-2').text(),
+		// 		price: $productRow.find('.column-3').text(),
+		// 		// Include other relevant product data
+		// 	};
+
+		// 	var wishlistData = JSON.parse(localStorage.getItem('wishlist')) || [];
+		// 	wishlistData.push(productData);
+		// 	localStorage.setItem('wishlist', JSON.stringify(wishlistData));
+
+		// 	swal(productData.name, "is added to wishlist!", "success");
+
+		// 	$(this).addClass('js-addedwish-b2');
+		// 	$(this).off('click');
+		// });
+
+		$('.js-addcart-detail').on('click', function(e) {
+			e.preventDefault();
+
+			var $productRow = $(this).closest('.table_row');
+			var productData = {
+				image: $productRow.find('.column-1 img').attr('src'),
+				name: $productRow.find('.column-2').text(),
+				price: $productRow.find('.column-3').text(),
+				// Include other relevant product data
+			};
+
+			var wishlistData = JSON.parse(localStorage.getItem('wishlist')) || [];
+			wishlistData.push(productData);
+			localStorage.setItem('wishlist', JSON.stringify(wishlistData));
+
+			swal(productData.name, "is added to wishlist!", "success");
+
+			$(this).addClass('js-addedcart-detail');
+			$(this).text('Added to Cart');
+			$(this).off('click');
+		});
+
 	
 	</script>
 <!--===============================================================================================-->

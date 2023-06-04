@@ -112,6 +112,7 @@
 
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+				@if(session()->has('status'))
 				<!-- <form>
 					<input type="text" placeholder="Search">
 				</form> -->
@@ -124,7 +125,8 @@
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 
-				<a href="{{ url('/') }}/account" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
+				@endif
+				<a href="{{ url('/') }}/account_detail" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
 					<i class="zmdi zmdi-account"></i>
 				</a>
 

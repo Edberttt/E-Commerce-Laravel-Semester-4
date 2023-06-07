@@ -1,7 +1,8 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+    $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+	// $conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -543,7 +544,8 @@
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=139.255.11.84; dbname=ALP_HAWK', 'student', 'isbmantap');				
+				$dbh = new PDO('mysql:host=139.59.237.132; dbname=ALP_HAWK', 'student', 'isb-20232');	
+				// $dbh = new PDO('mysql:host=127.0.0.1; dbname=ALP_HAWK', 'root', 'root');			
 
 					// Mengambil semua data produk
 				$stmt = $dbh->prepare('SELECT * FROM product ORDER BY product_id ASC limit 12');
@@ -618,7 +620,7 @@
 												<div class="wrap-slick3-dots"></div>
 												<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
-												<div class="">
+												<div>
 													<div class="item-slick3" data-thumb="images/kacamata/quickview3.jpg">
 														<div class="wrap-pic-w pos-relative">
 															<img src="/{{$productPicture}}" alt="IMG-PRODUCT">
@@ -668,7 +670,7 @@
 											</p>
 											
 											<!--  -->
-											<div class="">
+											<div>
 												<div class="flex-w flex-r-m p-b-10">
 													<div class="size-204 flex-w flex-m respon6-next">
 														<div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -1088,16 +1090,18 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	// });
 	// }); 
 
-	</script> -->
-<!--===============================================================================================-->	
-<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
+</script> -->
+	<!--===============================================================================================-->	
+	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/js/main.js"></script>
 	<script src="/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/vendor/bootstrap/js/popper.js"></script>
 	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/vendor/select2/select2.min.js"></script>
+	
 	<script>
 		$(".js-select2").each(function(){
 			$(this).select2({
@@ -1106,6 +1110,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			});
 		})
 	</script>
+<!--===============================================================================================-->
+	<script src="/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <!--===============================================================================================-->
 	<script src="/vendor/daterangepicker/moment.min.js"></script>
 	<script src="/vendor/daterangepicker/daterangepicker.js"></script>
@@ -1202,7 +1210,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		});
 	</script>
 <!--===============================================================================================-->
-	<script src="/js/main.js"></script>
+	<!-- <script src="/js/main.js"></script> -->
 
 </body>
 </html>

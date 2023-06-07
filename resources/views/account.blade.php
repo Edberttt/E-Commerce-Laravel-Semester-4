@@ -77,4 +77,7 @@
 			</div>
 		</div>
 	</div>
+	@section('account')
+	<script src='/js/main.js'></script>
+	@endsection
 @endsection

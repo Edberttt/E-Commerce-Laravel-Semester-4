@@ -92,57 +92,71 @@
 						<h3 class="mb-4">Orders</h3>
 						<div class="list-group">
 						@forelse($orders as $o)
-							<a href="#" class="list-group-item list-group-item-action" data-toggle="collapse" data-target="#{{'order'.$o['order_id']}}" aria-expanded="false" aria-controls="{{'order'.$o['order_id']}}">
-								<div class="d-flex w-100 justify-content-between">
-									<p class="mb-1">Order #{{$o['order_id']}}
-										@if($o['order_status'])
-										<span class="badge badge-success">Completed</span>
-										@else
-										<span class="badge badge-warning">In progress</span>
-										@endif
-									</p>
-									<small>Total: Rp. {{number_format($o['order_grandtotal']  , 2, ',', '.')}}</small>
+							<div class="">
+								<div class="row mb-2 mt-2">
+									<div class="col-md-10 col-12">
+									<a href="#" class="list-group-item list-group-item-action" data-toggle="collapse" data-target="#{{'order'.$o['order_id']}}" aria-expanded="false" aria-controls="{{'order'.$o['order_id']}}">
+										<div class="w-100 d-flex justify-content-between align-top">
+											<p class="mb-1">Order #{{$o['order_id']}}
+												@if($o['order_status'])
+												<span class="badge badge-success">Completed</span>
+												@else
+												<span class="badge badge-warning">In progress</span>
+												@endif
+											</p>
+											<small>Total: Rp. {{number_format($o['order_grandtotal']  , 2, ',', '.')}}</small>
+
+											
+										</div>
+										
+									</a>
+</div>
+									@if(!$o['order_status'])
+									<div class=" col-2"><a href="{{url('/order_update/'.$o['order_id'])}}" class="btn btn-success rounded text-white"><i class="fa fa-check"></i></a></div>
+									@else
+									<div class=" col-2"><a href="{{url('/order_undo/'.$o['order_id'])}}" class="btn btn-warning rounded text-black"><i class="fa fa-close"></i></a></div>
+									@endif
 								</div>
-							</a>
-							<div id="{{'order'.$o['order_id']}}" class="collapse">
-								<div class="table-responsive">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>Product</th>
-												<th>Price</th>
-												<th>Quantity</th>
-												<th>Subtotal</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr class="table_row">
-												<td class="column-1">
-													<div class="how-itemcart1">
-														<img src="images/kacamata/product2.jpg" alt="IMG">
-													</div>
-												</td>
-												<td class="column-2">Coach HC5149T 9004 s56</td>
-												<td class="column-3">1</td>
-												<td class="column-4">Rp. 2.580.000,00</td>
-											</tr>
-			
-											<tr class="table_row">
-												<td class="column-1">
-													<div class="how-itemcart1">
-														<img src="images/kacamata/product1.jpg" alt="IMG">
-													</div>
-												</td>
-												<td class="column-2">Ray-Ban RB6503D 2509 s55</td>
-												<td class="column-3">2</td>
-												<td class="column-4">Rp. 3.400.000,00</td>
-											</tr>
-										</tbody>
-									</table>
+								<div id="{{'order'.$o['order_id']}}" class="collapse col-12 col-md-10 ">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Product</th>
+													<th>Price</th>
+													<th>Quantity</th>
+													<th>Subtotal</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="table_row">
+													<td class="column-1">
+														<div class="how-itemcart1">
+															<img src="images/kacamata/product2.jpg" alt="IMG">
+														</div>
+													</td>
+													<td class="column-2">Coach HC5149T 9004 s56</td>
+													<td class="column-3">1</td>
+													<td class="column-4">Rp. 2.580.000,00</td>
+												</tr>
+				
+												<tr class="table_row">
+													<td class="column-1">
+														<div class="how-itemcart1">
+															<img src="images/kacamata/product1.jpg" alt="IMG">
+														</div>
+													</td>
+													<td class="column-2">Ray-Ban RB6503D 2509 s55</td>
+													<td class="column-3">2</td>
+													<td class="column-4">Rp. 3.400.000,00</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- <div class="text-right">
+										<button class="btn btn-primary">Confirm Order</button>
+									</div> -->
 								</div>
-								<!-- <div class="text-right">
-									<button class="btn btn-primary">Confirm Order</button>
-								</div> -->
 							</div>
 						@empty
 						<div class="col-12 text-center m-auto p-t-10"><h6>You haven't made any order yet.</h6></div>
@@ -221,4 +235,7 @@
 		}
 		</script>
 	</section>
+	@section('account')
+	<script src='/js/main.js'></script>
+	@endsection
 @endsection

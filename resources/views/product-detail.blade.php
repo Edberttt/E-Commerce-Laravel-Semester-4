@@ -290,17 +290,17 @@
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 			@if($product['category_id']=='F')
-			<a href="/product" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="/product/Women" class="stext-109 cl8 hov-cl1 trans-04">
 				Women
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 			@elseif($product['category_id']=='M')
-			<a href="/product" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="/product/Men" class="stext-109 cl8 hov-cl1 trans-04">
 				Men
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 			@else
-			<a href="/product" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="/product/Unisex" class="stext-109 cl8 hov-cl1 trans-04">
 				Unisex
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
@@ -326,7 +326,7 @@
 								<div class="wrap-pic-w pos-relative">
 									<img src="/{{$product['product_picture']}}" alt="IMG-PRODUCT">
 
-									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/images/kacamata/quickview3.jpg">
+									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$product['product_picture']}}">
 										<i class="fa fa-expand"></i>
 									</a>
 								</div>

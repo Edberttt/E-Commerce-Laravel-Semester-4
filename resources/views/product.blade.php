@@ -1,7 +1,8 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+    // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+	$conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -78,25 +79,55 @@
 							<div class="mtext-102 cl2 p-b-15">
 								Sort By
 							</div>
-
+							<?php
+								$sorted = isset($_GET['sort']);
+								$filtered = isset($_GET['filter']);
+								$colored = isset($_GET['color']);
+								$searched = isset($_GET['search']);
+								if(!($sorted or $filtered or $colored or $searched)){
+									$sorted = true;
+									$filtered = true;
+									$colored = true;
+									$searched = true;
+								}
+								$url = '?dummy=true';
+								foreach($_GET as $param => $val){
+									if($param == 'dummy') continue;
+									$url .= "&" . $param . "=" . urlencode($val);
+								}
+							?>
 							<ul>
 								<li class="p-b-6">
-									<a href="?sort=default" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? 'default') === 'default' ? 'filter-link-active' : ''; ?>">
+									<a href="
+										<?php
+											if($sorted) echo '?dummy=true&sort=default';
+											else echo $url.'&sort=default';
+										?>
+									" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? 'default') === 'default' ? 'filter-link-active' : ''; ?>">
 										Default
 									</a>
 								</li>
 								<li class="p-b-6">
-									<a href="?sort=newness" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'newness' ? 'filter-link-active' : ''; ?>">
+									<a href="<?php
+											if($sorted) echo '?dummy=true&sort=newness';
+											else echo $url.'&sort=newness';
+										?>" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'newness' ? 'filter-link-active' : ''; ?>">
 										Newness
 									</a>
 								</li>
 								<li class="p-b-6">
-									<a href="?sort=low-to-high" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'low-to-high' ? 'filter-link-active' : ''; ?>">
+									<a href="<?php
+											if($sorted) echo '?dummy=true&sort=low-to-high';
+											else echo $url.'&sort=low-to-high';
+										?>" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'low-to-high' ? 'filter-link-active' : ''; ?>">
 										Price: Low to High
 									</a>
 								</li>
 								<li class="p-b-6">
-									<a href="?sort=high-to-low" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'high-to-low' ? 'filter-link-active' : ''; ?>">
+									<a href="<?php
+											if($sorted) echo '?dummy=true&sort=high-to-low';
+											else echo $url.'&sort=high-to-low';
+										?>" class="filter-link stext-106 trans-04 <?php echo ($_GET['sort'] ?? '') === 'high-to-low' ? 'filter-link-active' : ''; ?>">
 										Price: High to Low
 									</a>
 								</li>
@@ -112,37 +143,52 @@
 
 							<ul>
 								<li class="p-b-6">
-									<a href="?sort=default" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? 'default') === 'default' ? 'filter-link-active' : ''; ?>">
+									<a href="?filter=default" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? 'default') === 'default' ? 'filter-link-active' : ''; ?>">
 										All
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="?sort=newness" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '0m-to-1m' ? 'filter-link-active' : ''; ?>">
+									<a href="<?php
+											if($filtered) echo '?dummy=true&filter=0m-to-1m';
+											else echo $url.'&filter=0m-to-1m';
+										?>" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '0m-to-1m' ? 'filter-link-active' : ''; ?>">
 										Rp. 0 - Rp. 1.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="?sort=low-to-high" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '1m-to-5m' ? 'filter-link-active' : ''; ?>">
+									<a href="<?php
+											if($filtered) echo '?dummy=true&filter=1m-to-5m';
+											else echo $url.'&filter=1m-to-5m';
+										?>" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '1m-to-5m' ? 'filter-link-active' : ''; ?>">
 										Rp. 1.000.000,00 - Rp. 5.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="?sort=5m-to-10m" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '5m-to-10m' ? 'filter-link-active' : ''; ?>">
+									<a href="<?php
+											if($filtered) echo '?dummy=true&filter=5m-to-10m';
+											else echo $url.'&filter=5m-to-10m';
+										?>" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '5m-to-10m' ? 'filter-link-active' : ''; ?>">
 										Rp. 5.000.000,00 - Rp. 10.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="?sort=10m-to-15m" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '10m-to-15m' ? 'filter-link-active' : ''; ?>">
+									<a href="<?php
+											if($filtered) echo '?dummy=true&filter=10m-to-15m';
+											else echo $url.'&filter=10m-to-15m';
+										?>" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '10m-to-15m' ? 'filter-link-active' : ''; ?>">
 										Rp. 10.000.000,00 - Rp. 15.000.000,00
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="?sort=15m+" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '15m+' ? 'filter-link-active' : ''; ?>">
+									<a href="<?php
+											if($filtered) echo '?dummy=true&filter=15m+';
+											else echo $url.'&filter=15m+';
+										?>" class="filter-link stext-106 trans-04 <?php echo ($_GET['filter'] ?? '') === '15m+' ? 'filter-link-active' : ''; ?>">
 										Rp. 15.000.000,00+
 									</a>
 								</li>
@@ -157,23 +203,26 @@
 							<ul>
 								<?php
 								// Ambil data warna dari tabel product (misalnya menggunakan PDO)
-								$dbh = new PDO('mysql:host=139.255.11.84;dbname=ALP_HAWK', 'student', 'isbmantap');
+								$dbh = new PDO('mysql:host=139.59.237.132; dbname=ALP_HAWK', 'student', 'isb-20232');	
 								$stmt = $dbh->prepare('SELECT DISTINCT product_color FROM product');
 								$stmt->execute();
 								$colors = $stmt->fetchAll(PDO::FETCH_COLUMN);
-								
-								// Loop melalui setiap warna
-								foreach ($colors as $color) {
-									echo '<li class="p-b-6">';
-									echo '<span class="fs-15 lh-12 m-r-6" style="color: ' . $color . ';">';
-									echo '<i class="zmdi zmdi-circle"></i>';
-									echo '</span>';
-									echo '<a href="#" class="filter-link stext-106 trans-04">';
-									echo $color;
-									echo '</a>';
-									echo '</li>';
-								}
 								?>
+								
+								 
+								@foreach ($colors as $color) 
+									<li class="p-b-6">
+									<span class="fs-15 lh-12 m-r-6" style="color: {{$color}};">
+									<i class="zmdi zmdi-circle"></i>
+									</span>
+									<a href="<?php
+											if($colored) echo '?dummy=true&color='.$color;
+											else echo $url.'&color='.$color;
+										?>" class="filter-link stext-106 trans-04">
+									{{$color}}
+									</a>
+									</li>
+								@endforeach
 							</ul>
 						</div>						
 					</div>
@@ -183,7 +232,7 @@
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=139.255.11.84;dbname=ALP_HAWK', 'student', 'isbmantap');
+				$dbh = new PDO('mysql:host=139.59.237.132; dbname=ALP_HAWK', 'student', 'isb-20232');	
 
 				// Mengatur default sorting berdasarkan nama produk
 				$sort = $_GET['sort'] ?? 'default';
@@ -201,17 +250,65 @@
 						$orderBy = 'product_name ASC';
 						break;
 				}
+				$color = $_GET['color'] ?? null;
+				$filter = $_GET['filter'] ?? 'default';
+				switch ($filter) {
+					case '0m-to-1m':
+						$filter1 = '0';
+						$filter2 = '1000000';
+						break;
+					case '1m-to-5m':
+						$filter1 = '1000000';
+						$filter2 = '5000000';
+						break;
+					case '5m-to-10m':
+						$filter1 = '5000000';
+						$filter2 = '10000000';
+						break;
+					case '10m-to-15m':
+						$filter1 = '10000000';
+						$filter2 = '15000000';
+						break;
+					case '15m+':
+						$filter1 = '15000000';
+						$filter2 = '100000000';
+						break;
+					default:
+						$filter1 = '0';
+						$filter2 = '100000000';
+						break;
+				}
 
 				// Memeriksa apakah ada parameter search yang dikirimkan
 				if (isset($_GET['search'])) {
 					$searchTerm = $_GET['search'];
-			
-					// Mengambil data produk berdasarkan pencarian
-					$stmt = $dbh->prepare('SELECT * FROM product WHERE product_name LIKE :searchTerm ORDER BY ' . $orderBy);
-					$stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
+					if(isset($_GET['color'])){
+						$stmt = $dbh->prepare('SELECT * FROM product WHERE product_name LIKE :searchTerm AND product_price > :filter1 AND product_price <= :filter2 AND product_color = :color ORDER BY ' . $orderBy);
+						$stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
+						$stmt->bindValue(':filter1', $filter1);
+						$stmt->bindValue(':filter2', $filter2);
+						$stmt->bindValue(':color', $color);
+					}
+					else{
+						// Mengambil data produk berdasarkan pencarian
+						$stmt = $dbh->prepare('SELECT * FROM product WHERE product_name LIKE :searchTerm AND product_price > :filter1 AND product_price <= :filter2 ORDER BY ' . $orderBy);
+						$stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
+						$stmt->bindValue(':filter1', $filter1);
+						$stmt->bindValue(':filter2', $filter2);
+					}
 				} else {
 					// Mengambil semua data produk
-					$stmt = $dbh->prepare('SELECT * FROM product ORDER BY ' . $orderBy);
+					if(isset($_GET['color'])){
+						$stmt = $dbh->prepare('SELECT * FROM product WHERE product_price > :filter1 AND product_price <= :filter2 AND product_color = :color ORDER BY ' . $orderBy);
+						$stmt->bindValue(':filter1', $filter1);
+						$stmt->bindValue(':filter2', $filter2);
+						$stmt->bindValue(':color', $color);
+					}
+					else{
+						$stmt = $dbh->prepare('SELECT * FROM product WHERE product_price > :filter1 AND product_price <= :filter2 ORDER BY ' . $orderBy);
+						$stmt->bindValue(':filter1', $filter1);
+						$stmt->bindValue(':filter2', $filter2);
+					}
 				}
 
 				$stmt->execute();
@@ -400,9 +497,15 @@
 
 
 			<!-- Load more -->
-			@if($load==8)
+			@if($load==8 and $counter > 8)
+			<?php 
+			$filter = $_GET['sort'] ?? $_GET['filter'] ?? $_GET['search'] ?? '';
+			if(isset($_GET['sort'])) $filter = '&sort='.$_GET['sort'];
+			if(isset($_GET['filter'])) $filter = '&filter='.$_GET['filter'];
+			if(isset($_GET['search'])) $filter = '&search='.$_GET['search'];
+			?>
 			<div class="flex-c-m flex-w w-full p-t-45">
-				<form method="post" action="{{url('/product')}}">
+				<form method="post" action="{{$url}}">
 					@csrf
 				<button type="submit" name="submit" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
 					Load More

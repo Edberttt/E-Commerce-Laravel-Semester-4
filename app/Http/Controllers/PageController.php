@@ -15,7 +15,8 @@ class PageController extends Controller
     }
 
     public function productDetail($get){
-        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+        // $conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
         // Periksa koneksi
         if (mysqli_connect_errno()) {
@@ -38,6 +39,7 @@ class PageController extends Controller
             $dump[] = $r;
         }
         // dump($dump);
+        $related = $dump;
 
         return view('product-detail')->with('product', $product)->with('related', $related);
     }
@@ -46,7 +48,8 @@ class PageController extends Controller
         if($get == 'Women') $cat = 'F';
         else if($get == 'Men') $cat = 'M';
         else $cat = 'U';
-        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+        // $conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
         // Periksa koneksi
         if (mysqli_connect_errno()) {

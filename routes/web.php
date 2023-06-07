@@ -4,6 +4,7 @@ use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authcontroller;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ Route::middleware('authsession')->group(function(){
     Route::get('/product', function(){
         return view('product')->with('load', 8);
     });
-    Route::post('/product', [PageController::class, 'product']);
+    Route::post('/product', [PageController::class, 'product'])->name('product');
     
     Route::get('/about', function () {
         return view('about');
@@ -61,6 +62,9 @@ Route::middleware('authsession')->group(function(){
     Route::get('/features_filter', function () {
         return view('features_filter');
     });
+
+    Route::get('/order_update/{get}', [OrderController::class, 'orderUpdate']);
+    Route::get('/order_undo/{get}', [OrderController::class, 'orderUndo']);
 });
 
 Route::get('/account', [authcontroller::class, 'account'])->name('account');

@@ -1,7 +1,8 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "webdev");
+    // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "webdev");
+	$conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -256,7 +257,7 @@
 							<ul>
 								<?php
 								// Ambil data warna dari tabel product (misalnya menggunakan PDO)
-								$dbh = new PDO('mysql:host=139.255.11.84;dbname=webdev', 'student', 'isbmantap');	
+								$dbh = new PDO('mysql:host=127.0.0.1;dbname=ALP_HAWK', 'root', 'root');	
 								$stmt = $dbh->prepare('SELECT DISTINCT product_color FROM product');
 								$stmt->execute();
 								$colors = $stmt->fetchAll(PDO::FETCH_COLUMN);

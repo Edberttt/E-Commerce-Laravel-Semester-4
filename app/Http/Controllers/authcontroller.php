@@ -34,10 +34,8 @@ class AuthController extends Controller
     {
         $sql = 'INSERT INTO user_tokens(user_id, selector, hashed_validator, expiry)
                 VALUES(?, ?, ?, ?)';
-        // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
-        // $conn = mysqli_connect("localhost", "root", "", "webdev");
-
         $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+        // $conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
         // Periksa koneksi
             if (mysqli_connect_errno()) {
@@ -58,9 +56,8 @@ class AuthController extends Controller
                     WHERE selector = ? AND
                         expiry >= now()
                     LIMIT 1';
-        // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
-        // $conn = mysqli_connect("localhost", "root", "", "webdev");
         $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+        // $conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
         // Periksa koneksi
             if (mysqli_connect_errno()) {
@@ -81,9 +78,8 @@ class AuthController extends Controller
     public function delete_user_token(string $user_id): bool
     {
         $sql = 'DELETE FROM user_tokens WHERE user_id = ?';
-        // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
-        // $conn = mysqli_connect("localhost", "root", "", "webdev");
         $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+        // $conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
         // Periksa koneksi
             if (mysqli_connect_errno()) {
@@ -110,9 +106,8 @@ class AuthController extends Controller
                 WHERE selector = ? AND
                     expiry > now()
                 LIMIT 1';
-        // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
-        // $conn = mysqli_connect("localhost", "root", "", "webdev");
         $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+        // $conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
         // Periksa koneksi
             if (mysqli_connect_errno()) {
@@ -194,7 +189,6 @@ class AuthController extends Controller
     }
 
 public function submitRegister(Request $request){
-    // $dbh = new PDO('mysql:host=139.255.11.84; dbname=ALP_HAWK', 'student', 'isbmantap');
     $register = $request->validate([
         'customer_firstName' => 'required',
         'customer_lastName' => 'required',
@@ -202,9 +196,8 @@ public function submitRegister(Request $request){
         'customer_password' => 'required',
         'customer_gender' => 'required'
     ]);
-    // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
-    // $conn = mysqli_connect("localhost", "root", "", "webdev");
     $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+    // $conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -230,9 +223,8 @@ public function submitLogin(Request $request){
         'customer_password' => 'required',
         'remember_me' => ''
     ]);
-    // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
-    // $conn = mysqli_connect("localhost", "root", "", "webdev");
     $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+    // $conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {

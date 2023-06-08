@@ -1,9 +1,8 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
-	// $conn = mysqli_connect("localhost", "root", "", "webdev");
-	$conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+    $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+	// $conn = mysqli_connect("127.0.0.1", "root", "root", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -181,22 +180,22 @@
 
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
-				<form>
+				<!-- <form>
 					<input type="text" placeholder="Search">
-				</form>
+				</form> -->
 				@if(session()->has('status'))
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="3">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
-				@endif
+				
 				<a href="{{ url('/') }}/wishlist-detail" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="2">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
-
+				@endif
 				<a href="{{ url('/') }}/account_detail" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
 					<i class="zmdi zmdi-account"></i>
 				</a>
-
+				
 			</div>
 
 			<!-- Button show menu -->
@@ -545,8 +544,8 @@
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=139.59.237.132; dbname=ALP_HAWK', 'student', 'isb-20232');
-				// $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");				
+				$dbh = new PDO('mysql:host=139.59.237.132; dbname=ALP_HAWK', 'student', 'isb-20232');	
+				// $dbh = new PDO('mysql:host=127.0.0.1; dbname=ALP_HAWK', 'root', 'root');			
 
 					// Mengambil semua data produk
 				$stmt = $dbh->prepare('SELECT * FROM product ORDER BY product_id ASC limit 12');
@@ -625,12 +624,12 @@
 												<div class="wrap-slick3-dots"></div>
 												<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
-												<div class="">
+												<div>
 													<div class="item-slick3" data-thumb="images/kacamata/quickview3.jpg">
 														<div class="wrap-pic-w pos-relative">
-															<img src="/{{$productPicture}}" alt="IMG-PRODUCT">
+															<img src="{{$productPicture}}" alt="IMG-PRODUCT">
 
-															<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$productPicture}}">
+															<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{$productPicture}}">
 																<i class="fa fa-expand"></i>
 															</a>
 														</div>
@@ -675,7 +674,7 @@
 											</p>
 											
 											<!--  -->
-											<div class="">
+											<div>
 												<div class="flex-w flex-r-m p-b-10">
 													<div class="size-204 flex-w flex-m respon6-next">
 														<div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -1096,16 +1095,18 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	// });
 	// }); 
 
-	</script> -->
-<!--===============================================================================================-->	
-<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
+</script> -->
+	<!--===============================================================================================-->	
+	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/js/main.js"></script>
 	<script src="/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/vendor/bootstrap/js/popper.js"></script>
 	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/vendor/select2/select2.min.js"></script>
+	
 	<script>
 		$(".js-select2").each(function(){
 			$(this).select2({
@@ -1114,6 +1115,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			});
 		})
 	</script>
+<!--===============================================================================================-->
+	<script src="/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <!--===============================================================================================-->
 	<script src="/vendor/daterangepicker/moment.min.js"></script>
 	<script src="/vendor/daterangepicker/daterangepicker.js"></script>
@@ -1210,7 +1215,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		});
 	</script>
 <!--===============================================================================================-->
-	<script src="/js/main.js"></script>
+	<!-- <script src="/js/main.js"></script> -->
 
 </body>
 </html>

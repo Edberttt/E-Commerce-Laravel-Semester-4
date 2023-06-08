@@ -12,6 +12,7 @@ use App\Http\Controllers\CartAddController;
 use App\Http\Controllers\CheckoutController;
 
 
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,7 +56,7 @@ Route::middleware('authsession')->group(function(){
     Route::get('/product', function(){
         return view('product')->with('load', 8);
     });
-    Route::post('/product', [PageController::class, 'product']);
+    Route::post('/product', [PageController::class, 'product'])->name('product');
     
     Route::get('/about', function () {
         return view('about');
@@ -94,8 +95,6 @@ Route::middleware('authsession')->group(function(){
     Route::get('/features_filter', function () {
         return view('features_filter');
     });
-
-
 });
 
 Route::get('/account', [authcontroller::class, 'account'])->name('account');

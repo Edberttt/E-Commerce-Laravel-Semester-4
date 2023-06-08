@@ -112,6 +112,7 @@
 
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+				@if(session()->has('status'))
 				<!-- <form>
 					<input type="text" placeholder="Search">
 				</form> -->
@@ -124,7 +125,8 @@
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 
-				<a href="{{ url('/') }}/account" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
+				@endif
+				<a href="{{ url('/') }}/account_detail" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
 					<i class="zmdi zmdi-account"></i>
 				</a>
 
@@ -374,15 +376,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</span>
 	</div>
 
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->	
 	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<script src="/js/main.js"></script>
 	<script src="/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/vendor/bootstrap/js/popper.js"></script>
 	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/vendor/select2/select2.min.js"></script>
+	
 	<script>
 		$(".js-select2").each(function(){
 			$(this).select2({
@@ -411,7 +415,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		});
 	</script>
 <!--===============================================================================================-->
-	<script src="/js/main.js"></script>
+	@yield('account')
 
 
 <!-- js for toggle Form -->
@@ -604,7 +608,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		});
 	</script>
 <!--===============================================================================================-->
-	<script src="/js/main.js"></script>
 
 </body>
 </html>

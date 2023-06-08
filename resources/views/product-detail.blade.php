@@ -84,9 +84,6 @@
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
-						<form>
-							<input type="text" placeholder="Search">
-						</form>
 						@if(session()->has('status'))
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="3">
 							<i class="zmdi zmdi-shopping-cart"></i>
@@ -114,9 +111,6 @@
 
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
-				<form>
-					<input type="text" placeholder="Search">
-				</form>
 				
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="3">
 					<i class="zmdi zmdi-shopping-cart"></i>
@@ -296,17 +290,17 @@
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 			@if($product['category_id']=='F')
-			<a href="/product" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="/product/Women" class="stext-109 cl8 hov-cl1 trans-04">
 				Women
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 			@elseif($product['category_id']=='M')
-			<a href="/product" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="/product/Men" class="stext-109 cl8 hov-cl1 trans-04">
 				Men
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 			@else
-			<a href="/product" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="/product/Unisex" class="stext-109 cl8 hov-cl1 trans-04">
 				Unisex
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
@@ -330,9 +324,9 @@
 
 							<div class="item-slick3" data-thumb="images/kacamata/quickview3.jpg">
 								<div class="wrap-pic-w pos-relative">
-									<img src="/{{$product['product_picture']}}" alt="IMG-PRODUCT">
+									<img src="{{$product['product_picture']}}" alt="IMG-PRODUCT">
 
-									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/images/kacamata/quickview3.jpg">
+									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{$product['product_picture']}}">
 										<i class="fa fa-expand"></i>
 									</a>
 								</div>
@@ -612,7 +606,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-pic hov-img0">
-									<img src="/<?php echo $productPicture; ?>" alt="IMG-PRODUCT">
+									<img src="<?php echo $productPicture; ?>" alt="IMG-PRODUCT">
 									
 								</div>
 								<div class="block2-txt flex-w flex-t p-t-14">
@@ -652,7 +646,7 @@
 																<div class="wrap-pic-w pos-relative">
 																	<img src="{{$productPicture}}" alt="IMG-PRODUCT">
 
-																	<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$productPicture}}">
+																	<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{$productPicture}}">
 																		<i class="fa fa-expand"></i>
 																	</a>
 																</div>

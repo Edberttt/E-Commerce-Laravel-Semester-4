@@ -504,7 +504,7 @@
 				// $dbh = new PDO('mysql:host=127.0.0.1; dbname=ALP_HAWK', 'root', 'root');			
 
 					// Mengambil semua data produk
-				$stmt = $dbh->prepare('SELECT * FROM product ORDER BY product_id ASC limit 12');
+				$stmt = $dbh->prepare('SELECT * FROM product ORDER BY product_id DESC limit 16');
 				
 				$stmt->execute();
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);

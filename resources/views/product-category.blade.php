@@ -1,7 +1,7 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("localhost", "root", "root", "webdev");
+    $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -280,11 +280,14 @@
 						break;
 				}
 
+				if($get == 'Women') $cat = 'F';
+				else if($get == 'Men') $cat = 'M';
+				else $cat = 'U';
 				// Memeriksa apakah ada parameter search yang dikirimkan
 				if (isset($_GET['search'])) {
 					$searchTerm = $_GET['search'];
 					if(isset($_GET['color'])){
-						$stmt = $dbh->prepare('SELECT * FROM product WHERE product_name LIKE :searchTerm AND product_price > :filter1 AND product_price <= :filter2 AND product_color = :color ORDER BY ' . $orderBy);
+						$stmt = $dbh->prepare("SELECT * FROM product WHERE category_id = '".$cat."' and product_name LIKE :searchTerm AND product_price > :filter1 AND product_price <= :filter2 AND product_color = :color ORDER BY " . $orderBy);
 						$stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
 						$stmt->bindValue(':filter1', $filter1);
 						$stmt->bindValue(':filter2', $filter2);
@@ -292,7 +295,7 @@
 					}
 					else{
 						// Mengambil data produk berdasarkan pencarian
-						$stmt = $dbh->prepare('SELECT * FROM product WHERE product_name LIKE :searchTerm AND product_price > :filter1 AND product_price <= :filter2 ORDER BY ' . $orderBy);
+						$stmt = $dbh->prepare("SELECT * FROM product WHERE category_id = '".$cat."' and product_name LIKE :searchTerm AND product_price > :filter1 AND product_price <= :filter2 ORDER BY " . $orderBy);
 						$stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
 						$stmt->bindValue(':filter1', $filter1);
 						$stmt->bindValue(':filter2', $filter2);
@@ -300,13 +303,13 @@
 				} else {
 					// Mengambil semua data produk
 					if(isset($_GET['color'])){
-						$stmt = $dbh->prepare('SELECT * FROM product WHERE product_price > :filter1 AND product_price <= :filter2 AND product_color = :color ORDER BY ' . $orderBy);
+						$stmt = $dbh->prepare("SELECT * FROM product WHERE category_id = '".$cat."' and product_price > :filter1 AND product_price <= :filter2 AND product_color = :color ORDER BY " . $orderBy);
 						$stmt->bindValue(':filter1', $filter1);
 						$stmt->bindValue(':filter2', $filter2);
 						$stmt->bindValue(':color', $color);
 					}
 					else{
-						$stmt = $dbh->prepare('SELECT * FROM product WHERE product_price > :filter1 AND product_price <= :filter2 ORDER BY ' . $orderBy);
+						$stmt = $dbh->prepare("SELECT * FROM product WHERE category_id = '".$cat."' and product_price > :filter1 AND product_price <= :filter2 ORDER BY " . $orderBy);
 						$stmt->bindValue(':filter1', $filter1);
 						$stmt->bindValue(':filter2', $filter2);
 					}

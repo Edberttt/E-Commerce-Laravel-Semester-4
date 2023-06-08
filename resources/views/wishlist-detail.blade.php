@@ -86,7 +86,7 @@
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 						
-						<a href="{{ route('wishlist') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="2">
+						<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="2">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 						
@@ -449,20 +449,32 @@
                                     </div>
                                 </td> --}}
 
-                                {{-- <td class="column-5"></td> --}}
-
-                                <td class="column-6">
-                                    <button type="submit" style="min-width: 80px; font-size: 10px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                <td class="column-5">
+									<button type="submit" style="min-width: 80px; font-size: 10px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                         Add to cart
                                     </button>
-                                </td>
+								</td>
                             </tr>
 							</form>
+							{{-- <form method="POST" action="{{ route('deleteWishlist') }}">
+								<td class="column-6">
+									<input type="hidden" name="wishlist_id" value="{{ $wishlistId }}">
+									<input type="hidden" name="product_id" value="{{ $wish->product_id }}">
+									<button type="submit" style="min-width: 80px; font-size: 10px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+										Remove
+									</button>
+								</td>									
+							</form> --}}
 							@endforeach
                             
                         </table>
                     </div>
-					
+					<form method="post" action="{{ route('clearWishlist') }}">
+						@csrf
+						<button type="submit" style="width: 100%" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+							Clear Wishlist
+						</button>
+					</form>
                 </div>
             </div>
         </div>

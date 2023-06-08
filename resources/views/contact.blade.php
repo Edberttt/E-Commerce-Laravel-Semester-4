@@ -60,10 +60,11 @@
 							<span class="mtext-110 cl2">
 								Lets Talk
 							</span>
-
-							<p class="stext-115 cl1 size-213 p-t-18">
-								(+62) 85967833065
-							</p>
+							<br>
+							<br>
+							<a href="{{ 'https://wa.me/+6282196142950' }}" target="_blank" class="stext-115 cl1 size-213 p-t-18">
+								(+62) 82196142950
+							</a>
 						</div>
 					</div>
 

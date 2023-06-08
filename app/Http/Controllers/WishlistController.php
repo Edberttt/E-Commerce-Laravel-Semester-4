@@ -18,6 +18,9 @@ class WishlistController extends Controller
         // $query = 'SELECT w.wishlist_id, p.product_id, p.product_picture, p.product_name, p.product_price FROM wishlist_product w LEFT JOIN product p ON w.product_id = p.product_id WHERE w.wishlist_id = ?';
         $wishlist = DB::select($query, [$wishlistId]);
 
+        $qty = 'SELECT quantity from wishlist_product WHERE wishlist_id = ?';
+        $slider_qty = DB::select($qty, [$wishlistId]);
+
         // $productPrice = DB::select($query2, [$wishlistId]);
         // $query = 'SELECT w.wishlist_id, p.product_id, p.product_picture, p.product_name, CONCAT("Rp.", FORMAT(p.product_price, 0),",-") AS subtotal FROM wishlist_product w LEFT JOIN product p ON w.product_id = p.product_id WHERE w.wishlist_id = ?';
         // $subtotal = DB::select($query, [$wishlistId]);
@@ -79,16 +82,33 @@ class WishlistController extends Controller
             //     DB::update($query, [$prodid, $id]);
     }
 
+    public function clearWishlist(Request $request)
+    {
+        $customerId = session('status')[0]['customer_id'];
+        $productId = $request->input('product_id');
+        
+        $wishlistIdResult = DB::select('SELECT wishlist_id FROM wishlist WHERE customer_id = ?', [$customerId]);
+        $wishlistId = $wishlistIdResult[0]->wishlist_id;
+
+        // $query = 'DELETE FROM wishlist_product WHERE wishlist_id = ? AND product_id = ?';
+        $query = 'DELETE FROM wishlist_product WHERE wishlist_id = ?';
+        DB::delete($query, [$wishlistId]);
+        return redirect()->route('wishlist')->with('success', 'Product deleted from wishlist.');
+
+    }
+
     public function deleteWishlist(Request $request)
     {
-        $productId = $request->input('product_id');
         $customerId = session('status')[0]['customer_id'];
+        $productId = $request->input('product_id');
+        
         $wishlistIdResult = DB::select('SELECT wishlist_id FROM wishlist WHERE customer_id = ?', [$customerId]);
         $wishlistId = $wishlistIdResult[0]->wishlist_id;
 
         $query = 'DELETE FROM wishlist_product WHERE wishlist_id = ? AND product_id = ?';
+        // $query = 'DELETE FROM wishlist_product WHERE wishlist_id = ?';
         DB::delete($query, [$wishlistId, $productId]);
+        return redirect()->route('wishlist')->with('success', 'Product deleted from wishlist.');
 
-        return redirect()->back()->with('success', 'Product deleted from wishlist.');
     }
 }

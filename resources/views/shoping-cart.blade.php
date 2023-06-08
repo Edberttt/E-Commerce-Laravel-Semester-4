@@ -87,7 +87,7 @@
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 						@endif
-						<a href="{{ url('/') }}/wishlist-detail" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="2">
+						<a href="{{ Route('wishlist') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="2">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 		
@@ -319,10 +319,18 @@
 
 								<tr class="table_row">
 									<td class="column-1">
-										<div class="how-itemcart1">
+										<form action="{{ route('deleteCart', ['cartId' => $cartId]) }}" method="POST">
+											@csrf
+											{{-- @method('DELETE') --}}
+											<div class="how-itemcart1">
+												<img src="{{ $item->product_picture }}" alt="IMG">
+												{{-- <a href="{{ Route:('deleteCart') }}"></a> --}}
+												
+											</div>
+											<button type="submit">Delete</button>
+											{{-- <a href="{{ route('deleteCart', ['productId' => $item->product_id]) }}">Submit</a> --}}
 
-											<img src="{{ $item->product_picture }}" alt="IMG">
-										</div>
+										</form>
 									</td>
 									<td class="column-2">{{ $item->product_name }}</td> 
 									<td class="column-3">{{ $item->product_price  }}</td>
@@ -358,10 +366,16 @@
 								</div>
 							</div> -->
 
-
-							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-								Update Cart
-							</div>
+							<form>
+								@csrf
+								@method('PUT')
+								<input type="hidden" name="cartId" value="{{ $cartId }}">
+								<input type="hidden" name="productId" value="{{ $item->product_id }}">
+								<input type="hidden" name="quantity" value="{{ $item->quantity }}">
+								<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+									Update Cart
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>

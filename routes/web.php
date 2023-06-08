@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
+use illuminate\Support\Facades\DB;
+use illuminate\Support\Facades\Session;
+use Illuminate\support\Facades\Redirect;
 use App\Http\Controllers\authcontroller;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ContactController;
@@ -36,6 +39,8 @@ Route::middleware('authsession')->group(function(){
     Route::post('/addToCart', [WishlistController::class, 'addToCart'])->name('addToCart');
     Route::post('/deleteWishlist', [WishlistController::class, 'deleteWishlist'])->name('deleteWishlist');
     Route::post('/addToCartfromWishlist', [WishlistController::class, 'addToCart'])->name('addToCartfromWishlist');
+    Route::get('/wishlistSlider', [WishlistController::class, 'wishlistSlider'])->name('wishlistSlider');
+    Route::post('/clearWishlist', [WishlistController::class, 'clearWishlist'])->name('clearWishlist');
     
     //CartController
     // Route::get('/cartPage', [CartController::class, 'cartPage'])->name('cart');
@@ -43,8 +48,16 @@ Route::middleware('authsession')->group(function(){
     Route::get('/cartPage', [CartController::class, 'cartPage'])->name('cart');
     Route::post('/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
 
+    Route::get('/sliderCart', [CartController::class, 'sliderCart'])->name('sliderCart');
+    Route::get('/index', [CartController::class, 'sliderCart'])->name('sliderCart');
+
+    Route::delete('/cart/delete/{cartId}', [CartController::class, 'delete'])->name('deleteCart');
+    Route::post('/cart/update', [CartController::class, 'update'])->name('updateCart');
+
+
     //CheckoutController
     Route::get('/checkoutPage', [CheckoutController::class, 'checkoutPage'])->name('checkout');
+    Route::post('/dataCheckout', [CheckoutController::class, 'dataCheckout'])->name('dataCheckout');
     // Route::post('/checkoutPage', [CheckoutAddController::class, 'checkoutPage'])->name('checkout');
 
     

@@ -276,65 +276,30 @@
 			
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
+					{{-- @foreach($cart as $c)
+					<form action="{{ route('cartSlider') }}" method="POST"> --}}
+						{{-- @csrf --}}
+						<li class="header-cart-item flex-w flex-t m-b-12">
+							<div class="header-cart-item-img">
 
-							<img src="images/kacamata/Converse_F_CO_MCV5076LB_001_52-removebg-preview.png" alt="IMG">
+								{{-- <img src="{{ $c->product_picture }}" alt="IMG"> --}}
 
-						</div>
+							</div>
 
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04 js-show-modal1">
+							<div class="header-cart-item-txt p-t-8">
+								<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04 js-show-modal1">
+									{{-- "{{ $c->product_name }}" --}}
+								</a>
 
-								Converse F CO MCV5076LB 001 52
-							</a>
+								<span class="header-cart-item-info">
+									{{-- "{{ $c->product_price }}" --}}
 
-							<span class="header-cart-item-info">
-								1 x Rp 1.680.000
+								</span>
+							</div>
+						</li>
+					</form>
 
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-
-							<img src="images/kacamata/Christian Dior F CD MYDIORO1 086 54.jpg" alt="IMG">
-
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04 js-show-modal1">
-
-								Christian Dior F CD MYDIORO1 086 54
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x Rp 5.520.000
-
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-
-							<img src="images/kacamata/Tommy Hilfiger F TH 0090 J5G 52.png" alt="IMG">
-
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04 js-show-modal1">
-
-								Tommy Hilfiger F TH 0090 J5G 52
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x Rp 2.100.000
-
-							</span>
-						</div>
-					</li>
+					{{-- @endforeach --}}
 				</ul>
 				
 				<div class="w-full">
@@ -357,9 +322,7 @@
 			</div>
 		</div>
 	</div>
-
 		
-
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">

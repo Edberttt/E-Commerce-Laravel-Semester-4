@@ -438,8 +438,11 @@
 							</div>
 
 							<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-								<p class="stext-111 cl6 p-t-2">
+								{{-- <p class="stext-111 cl6 p-t-2">
 									There are no shipping methods available. Please double check your address, or contact us if you need any help.
+								</p> --}}
+								<p class="stext-111 cl6 p-t-2">
+									Please, fill your city & address first.
 								</p>
 								
 								<div class="p-t-15">
@@ -493,7 +496,7 @@
 										<div class="dropDownSelect2"></div>
 									</div> -->
 
-									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+									{{-- <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
 										<select class="js-select2" name="City" id="City">
 											<option disabled selected>Select City...</option>
 											<option>Surabaya Barat</option>
@@ -503,19 +506,85 @@
 											<option>Surabaya Tengah</option>
 										</select>
 										<div class="dropDownSelect2"></div>
-									</div>
+									</div> --}}
 
 									<!-- <div class="bor8 bg0 m-b-12">
 										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Kota">
 									</div> -->
 
+									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+										<select class="js-select2" name="City" id="City" onchange="updateShippingCost()">
+										  <option disabled selected>Select City...</option>
+										  <option>Surabaya Barat</option>
+										  <option>Surabaya Timur</option>
+										  <option>Surabaya Utara</option>
+										  <option>Surabaya Selatan</option>
+										  <option>Surabaya Tengah</option>
+										</select>
+										<div class="dropDownSelect2"></div>
+									</div>
+									
 									<div class="bor8 bg0 m-b-22">
-										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="alamat" placeholder="Alamat">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="alamat" placeholder="Alamat" value="{{ $customerAddress }}">
 									</div>
-
-                                    <div class="bor8 bg0 m-b-22">
+									
+									
+                                    {{-- <div class="bor8 bg0 m-b-22">
 										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="date" name="date" placeholder="Select Date">
+									</div> --}}
+									<div class="bor8 bg0 m-b-22">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="date" name="date" id="dateInput" placeholder="Select Date" min="0001-01-01" max="" required>
 									</div>
+									  
+									
+									  
+									<script>
+										function updateShippingCost() {
+										  var citySelect = document.getElementById("City");
+										  var selectedCity = citySelect.value;
+										  var shippingCostText = document.getElementById("shippingCostText");
+									  
+										  switch (selectedCity) {
+											case "Surabaya Utara":
+											case "Surabaya Selatan":
+											  shippingCostText.textContent = "Rp 40.000";
+											  break;
+											case "Surabaya Tengah":
+											  shippingCostText.textContent = "Rp 30.000";
+											  break;
+											case "Surabaya Timur":
+											  shippingCostText.textContent = "Rp 50.000";
+											  break;
+											default:
+											  shippingCostText.textContent = "Rp 20.000";
+											  break;
+										  }
+
+										  	
+										}
+									</script>
+									  
+									  
+									<script>
+										// Mendapatkan elemen input tanggal
+										var dateInput = document.getElementById("dateInput");
+									  
+										// Mendapatkan tanggal saat ini
+										var currentDate = new Date().toISOString().split("T")[0];
+									  
+										// Mengatur tanggal minimum
+										dateInput.setAttribute("min", currentDate);
+									  
+										// Menambahkan event listener untuk validasi tanggal
+										dateInput.addEventListener("input", function() {
+										  var selectedDate = this.value;
+										  if (selectedDate < currentDate) {
+											// Jika tanggal yang dipilih lebih kecil dari tanggal saat ini, hapus nilainya
+											this.value = "";
+										  }
+										});
+									  </script>
+									  
 
                                     <!-- <div class="bor8 bg0 m-b-22">
 										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="time" name="time" placeholder="Select Time">
@@ -523,7 +592,7 @@
                                         <input type="time" id="meeting-time" name="meeting-time" min="08:00" max="17:00" step="1800">
 									</div> -->
 									
-                                    <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                                    {{-- <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
 										<select class="js-select2" name="time" placeholder="Select Shipping Time">
 											<option disabled selected>Select Shipping Time</option>
                                             <option>10.00 WIB</option>
@@ -531,13 +600,110 @@
 											<option>15.00 WIB</option>
 										</select>
 										<div class="dropDownSelect2"></div>
-									</div>
+									</div> --}}
 
-									<div class="flex-w">
+									{{-- <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+										<select class="js-select2" name="time" id="timeSelect" placeholder="Select Shipping Time" onchange="validateShippingTime()">
+										  <option disabled selected>Select Shipping Time</option>
+										  <option>00.00 WIB</option>
+										  <option>01.00 WIB</option>
+										  <option>10.00 WIB</option>
+										  <option>12.00 WIB</option>
+										  <option>15.00 WIB</option>
+										</select>
+										<div class="dropDownSelect2"></div>
+									</div>
+									  
+									<script>
+										function validateShippingTime() {
+										  var timeSelect = document.getElementById("timeSelect");
+										  var selectedTime = timeSelect.value;
+									  
+										  var currentTime = new Date();
+										  var currentHour = currentTime.getHours();
+										  var currentMinute = currentTime.getMinutes();
+									  
+										  var selectedHour = parseInt(selectedTime.split(".")[0]);
+										  var selectedMinute = parseInt(selectedTime.split(".")[1]);
+									  
+										  if (selectedHour < currentHour || (selectedHour === currentHour && selectedMinute <= currentMinute)) {
+											alert("Shipping time cannot be in the past. Please select a valid shipping time.");
+											timeSelect.value = "Select Shipping Time"; // Reset the selected time
+										  }
+										}
+									</script> --}}
+									  
+									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+										<select class="js-select2" name="time" id="timeSelect" placeholder="Select Shipping Time" onchange="validateShippingTime()">
+										  <option disabled selected>Select Shipping Time</option>
+										  <option>00.00 WIB</option>
+										  <option>01.00 WIB</option>
+										  <option>10.00 WIB</option>
+										  <option>12.00 WIB</option>
+										  <option>15.00 WIB</option>
+										</select>
+										<div class="dropDownSelect2"></div>
+									</div>
+									  
+									{{-- <script>
+										function validateShippingTime() {
+										  var timeSelect = document.getElementById("timeSelect");
+										  var selectedTime = timeSelect.value;
+									  
+										  var currentTime = new Date();
+										  var currentHour = currentTime.getHours();
+										  var currentMinute = currentTime.getMinutes();
+									  
+										  var selectedHour = parseInt(selectedTime.split(".")[0]);
+										  var selectedMinute = parseInt(selectedTime.split(".")[1]);
+									  
+										  if (selectedHour < currentHour || (selectedHour === currentHour && selectedMinute <= currentMinute)) {
+											alert("Shipping time cannot be in the past. Please select a valid shipping time.");
+											timeSelect.selectedIndex = 0; // Reset the selected time to the first option
+										  }
+										}
+									</script> --}}
+
+									<script>
+										function updateShippingCost() {
+										  var citySelect = document.getElementById("City");
+										  var selectedCity = citySelect.value;
+										  var shippingCostText = document.getElementById("shippingCostText");
+										  var totalText = document.getElementById("totalText");
+									  
+										  switch (selectedCity) {
+											case "Surabaya Utara":
+											case "Surabaya Selatan":
+											  shippingCostText.textContent = "Rp 40.000";
+											  break;
+											case "Surabaya Tengah":
+											  shippingCostText.textContent = "Rp 30.000";
+											  break;
+											case "Surabaya Timur":
+											  shippingCostText.textContent = "Rp 50.000";
+											  break;
+											default:
+											  shippingCostText.textContent = "Rp 20.000";
+											  break;
+										  }
+									  
+										//   var subtotal = parseFloat("{{ isset($subtotal) ? $subtotal[0]->subtotal : '0' }}");
+										//   var shippingCost = parseFloat(shippingCostText.textContent.replace("Rp ", ""));
+										//   var total = subtotal + shippingCost;
+										//   totalText.textContent = "Rp " + total.toFixed(2);
+										}
+									  
+										// Call the function initially to set the initial total
+										updateShippingCost();
+									  </script>
+									  
+									  
+
+									{{-- <div class="flex-w">
 										<div class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
 											Update Totals
 										</div>
-									</div>
+									</div> --}}
 										
 								</div>
 							</div>
@@ -564,9 +730,14 @@
 								</span>
 							</div>
 
-							<div>
+							{{-- <div>
 								<span style="width: 400px; padding-left: 12px;" class="mtext-110 cl2">
 									Rp 20.000
+								</span>
+							</div> --}}
+							<div>
+								<span style="width: 400px; padding-left: 12px; text-decoration: line-through;" class="mtext-110 cl2" id="shippingCostText">
+								  Rp 00.000
 								</span>
 							</div>
 						</div>
@@ -580,7 +751,7 @@
 
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2">
-									Rp 9.320.000
+									{{ isset($subtotal) ? $subtotal[0]->subtotal : 'Subtotal not available' }}
 								</span>
 							</div>
 						</div>
@@ -650,6 +821,7 @@
 						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Checkout
 						</button>
+
 					</div>
 				</div>
 			</div>

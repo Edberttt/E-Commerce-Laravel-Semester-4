@@ -76,7 +76,8 @@ class CartController extends Controller
         $subtotal = DB::select($query, [$cartId]);
 
         // Pass the cart items to the cart page view
-        return view('shoping-cart', ['cart' => $cart, 'cartId' => $cartId], compact('subtotal'));
+        // return view('shoping-cart','index', ['cart' => $cart, 'cartId' => $cartId], compact('subtotal'));
+        return view('shoping-cart', compact('cart','cartId','subtotal'));
     }
 
     // public function sumSubtotal(Request $request)
@@ -102,14 +103,28 @@ class CartController extends Controller
         $cartIdResult = DB::select('SELECT cart_id FROM cart WHERE customer_id = ?', [$customerId]);
         $cartId = $cartIdResult[0]->cart_id;
 
+        $productId = $request->input('product_id');
+
         $query = 'DELETE FROM cart_product WHERE cart_id = ? and product_id = ?';
         DB::delete($query, [$cartId]);
+
+        DB::table('cart_product')->where('cart_id', $cartId,'product_id', $productId)->delete();
 
         // Pass the cart items to the cart page view
         // return view('shoping-cart', ['subtotal' => $subtotal]);
         // return view('shoping-cart', compact('subtotal'));
-        return view('shoping-cart', compact('subtotal'));
+        return view('shoping-cart')->with('success', 'Product deleted from cart.');
+        
     }
+
+    // public function delete($cartId)
+    // {
+    //     // Perform the deletion query
+    //     DB::table('cart')->where('id', $cartId)->delete();
+
+    //     // Optionally, you can redirect to a specific page after the deletion
+    //     return redirect()->route('cartList')->with('success', 'Cart deleted successfully.');
+    // }
 
     public function totalQuantity(Request $request)
     {
@@ -153,7 +168,8 @@ class CartController extends Controller
         // Pass the cart items to the cart page view
         // return view('shoping-cart', ['subtotal' => $subtotal]);
         // return view('shoping-cart', compact('subtotal'));
-        return view('shoping-cart', compact('subtotal'));
+        // return view('shoping-cart', compact('subtotal'));
+        return view('shoping-cart')->with('success', 'Cart updated successfully.');
     }
 
     public function checkoutPage(Request $request)
@@ -167,5 +183,19 @@ class CartController extends Controller
 
         // Pass the cart items to the cart page view
         return view('checkout', ['cart' => $cart, 'cartId' => $cartId]);
+    }
+
+
+    public function sliderCart(Request $request)
+    {
+        $customerId = session('status')[0]['customer_id'];
+        $cartIdResult = DB::select('SELECT cart_id FROM cart WHERE customer_id = ?', [$customerId]);
+        $cartId = $cartIdResult[0]->cart_id;
+        
+        $query = 'SELECT c.cart_id, p.product_id, p.product_picture, p.product_name, p.product_price, c.quantity FROM cart_product c LEFT JOIN product p ON c.product_id = p.product_id WHERE c.cart_id = ?';
+        $cart = DB::select($query, [$cartId]);
+
+        return view('index', ['cart' => $cart, 'cartId' => $cartId], compact('cart'));
+
     }
 }

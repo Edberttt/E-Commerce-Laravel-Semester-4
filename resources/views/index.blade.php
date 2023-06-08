@@ -127,13 +127,13 @@
 					
 					<!-- Logo desktop -->		
 					<a href="{{ url('/')}}/" class="logo">
-						<img src="images/icons/logo.png" alt="IMG-LOGO">
+						<img src="/images/icons/logo.png" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							<li class="active-menu">
+							<li class="">
 								<a href="{{ url('/')}}/">Home</a>
 							</li>
 
@@ -153,14 +153,18 @@
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
-						@if(session()->has('status'))
+						@if(session()->has('status'))	
+						<!-- <form>
+							<input type="text" placeholder="Search">
+						</form> -->
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="3">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
-
-						<a href="{{ url('/') }}/wishlist-detail" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="2">
+						
+						<a href="{{ route('wishlist') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="2">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
+						
 						@endif
 						<a href="{{ url('/') }}/account_detail" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
 							<i class="zmdi zmdi-account"></i>
@@ -175,27 +179,29 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="{{ url('/') }}/"><img src="images/icons/logo.png" alt="IMG-LOGO"></a>
+				<a href="{{ url('/') }}/"><img src="/images/icons/logo.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+				@if(session()->has('status'))
 				<!-- <form>
 					<input type="text" placeholder="Search">
 				</form> -->
-				@if(session()->has('status'))
+				
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="3">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
-				
+
 				<a href="{{ url('/') }}/wishlist-detail" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="2">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
+
 				@endif
 				<a href="{{ url('/') }}/account_detail" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
 					<i class="zmdi zmdi-account"></i>
 				</a>
-				
+
 			</div>
 
 			<!-- Button show menu -->
@@ -339,11 +345,11 @@
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="{{ url('/') }}/shoping-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+						<a href="{{ route('cart') }}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
 						</a>
 
-						<a href="{{ url('/') }}/shoping-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+						<a href="{{ route('cart') }}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
 							Check Out
 						</a>
 					</div>

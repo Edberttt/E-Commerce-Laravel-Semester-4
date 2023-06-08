@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Shoping Cart</title>
+	<title>Checkout</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -69,8 +69,8 @@
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="#" class="logo">
-					<img src="images/icons/logo.png" alt="IMG-LOGO">
+					<a href="{{ url('/')}}/" class="logo">
+						<img src="images/icons/logo.png" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->
@@ -78,45 +78,39 @@
 						<ul class="main-menu">
 							<li class="active-menu">
 								<a href="{{ url('/')}}/">Home</a>
-								<!-- <ul class="sub-menu">
-									<li><a href="{{ url('/')}}/">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul> -->
 							</li>
 
 							<li>
-								<a href="{{ url('/')}}product">Shop</a>
+								<a href="{{ url('/') }}/product">Shop</a>
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="{{ url('/')}}/features_filter">Features</a>
+								<a href="{{ url('/') }}/features_filter">Features</a>
 							</li>
 
 							<li>
-								<a href="{{ url('/')}}contact">Contact</a>
+								<a href="{{ url('/') }}/contact">Contact</a>
 							</li>
 						</ul>
 					</div>	
 
 					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m">
+					<div class="wrap-icon-header flex-w flex-r-m m-r-15">
 						<form>
 							<input type="text" placeholder="Search">
 						</form>
-	
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="3">
+						@if(session()->has('status'))
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="3">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
-
-						<a href="wishlist-detail.html" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="2">
+						@endif
+						<a href="{{ url('/') }}/wishlist-detail" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="2">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
-
-						<a href="account.html" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
+		
+						<a href="{{ url('/') }}/account_detail" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
 							<i class="zmdi zmdi-account"></i>
 						</a>
-						  					  						  
 					</div>
 				</nav>
 				
@@ -127,7 +121,7 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="index.html"><img src="images/icons/logo.png" alt="IMG-LOGO"></a>
+				<a href="{{ url('/') }}/"><img src="images/icons/logo.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -136,15 +130,15 @@
 					<input type="text" placeholder="Search">
 				</form>
 				
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="3">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 
-				<a href="w" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
+				<a href="{{ route('wishlist') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="2">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 
-				<a href="account.html" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
+				<a href="{{ url('/') }}/account" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
 					<i class="zmdi zmdi-account"></i>
 				</a>
 
@@ -331,7 +325,7 @@
 		
 
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85">
+	<div class="bg0 p-t-75 p-b-85">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -339,83 +333,47 @@
 						<div class="wrap-table-shopping-cart">
 							<table class="table-shopping-cart">
 								<tr class="table_head">
-									<th class="column-1">Product</th>
-									<th class="column-2"></th>
+									<th class="column-1" style="text-align: left;">Product</th>
+									<th class="column-2">Name</th>
 									<th class="column-3">Price</th>
-									<th class="column-4">Quantity</th>
+									<th class="column-4" style="padding-left: 20px;">Quantity</th>
 									<th class="column-5">Total</th>
-                                    <tr class="table_row">
-                                        <td class="column-1">
-                                            <div class="how-itemcart1">
-                                                <img src="images/kacamata/Converse_F_CO_MCV5076LB_001_52-removebg-preview.png" alt="IMG">
-                                            </div>
-                                        </td>
-                                        <td class="column-2">Converse F CO MCV5076LB 001 52</td>
-                                        <td class="column-3">Rp 1.680.000</td>
-                                        <td class="column-4">
-                                            <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-minus"></i>
-                                                </div>
-    
-                                                <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="1">
-    
-                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="column-5">Rp 1.680.000</td>
-                                    </tr>
-    
-                                    <tr class="table_row">
-                                        <td class="column-1">
-                                            <div class="how-itemcart1">
-                                                <img src="images/kacamata/Christian Dior F CD MYDIORO1 086 54.jpg" alt="IMG">
-                                            </div>
-                                        </td>
-                                        <td class="column-2">Christian Dior F CD MYDIORO1 086 54</td>
-                                        <td class="column-3">Rp 5.520.000</td>
-                                        <td class="column-4">
-                                            <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-minus"></i>
-                                                </div>
-    
-                                                <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product2" value="1">
-    
-                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="column-5">Rp 5.520.000</td>
-                                    </tr>
-                                    <tr class="table_row">
-                                        <td class="column-1">
-                                            <div class="how-itemcart1">
-                                                <img src="images/kacamata/Tommy Hilfiger F TH 0090 J5G 52.png" alt="IMG">
-                                            </div>
-                                        </td>
-                                        <td class="column-2">Tommy Hilfiger F TH 0090 J5G 52</td>
-                                        <td class="column-3">Rp 2.100.000</td>
-                                        <td class="column-4">
-                                            <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-minus"></i>
-                                                </div>
-    
-                                                <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product2" value="1">
-    
-                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="column-5">Rp 2.100.000</td>
-                                    </tr>
-                                </table>
-                            </div>
+								</tr>
+								@foreach($cart as $item)
+								<form>
+									@csrf
+
+								<tr class="table_row">
+									<td class="column-1">
+										<div class="how-itemcart1">
+
+											<img src="{{ $item->product_picture }}" alt="IMG">
+										</div>
+									</td>
+									<td class="column-2">{{ $item->product_name }}</td> 
+									<td class="column-3">{{ $item->product_price  }}</td>
+
+									<td class="column-4">
+										<div class="wrap-num-product flex-w m-l-auto m-r-0">
+											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-minus"></i>
+											</div>
+
+											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="{{ $item->quantity }}">
+
+											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-plus"></i>
+											</div>
+										</div>
+									</td>
+
+									<td class="column-5">{{ $item->product_price }}</td>
+
+								</tr>
+								</form>
+								@endforeach
+							</table>
+						</div>
 
 						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 							<!-- <div class="flex-w flex-m m-r-20 m-tb-5">
@@ -466,7 +424,7 @@
 
 							<div class="size-209">
 								<span class="mtext-110 cl2">
-									Rp 9.300.000
+									{{ isset($subtotal) ? $subtotal[0]->subtotal : 'Subtotal not available' }}
 								</span>
 							</div>
 						</div>
@@ -594,7 +552,7 @@
 
 							<div class="size-209">
 								<span class="mtext-110 cl2">
-									Rp 9.300.000
+									{{ isset($subtotal) ? $subtotal[0]->subtotal : 'Subtotal not available' }}
 								</span>
 							</div>
 						</div>

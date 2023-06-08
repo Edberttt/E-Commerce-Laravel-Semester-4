@@ -77,22 +77,23 @@
 					</div>	
 
 					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m">
+					<div class="wrap-icon-header flex-w flex-r-m m-r-15">
 						<form>
 							<input type="text" placeholder="Search">
 						</form>
-	
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="3">
+						@if(session()->has('status'))
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="3">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
-
-						<a href="{{ url('/') }}/wishlist-detail" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="2">
+						@endif
+						<a href="{{ url('/') }}/wishlist-detail" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="2">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
-
-						<a href="{{ url('/') }}/account" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
+		
+						<a href="{{ url('/') }}/account_detail" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-account">
 							<i class="zmdi zmdi-account"></i>
-						</a>		  
+						</a>
+		
 					</div>
 				</nav>
 				
@@ -213,7 +214,6 @@
 
 							<span class="header-cart-item-info">
 								1 x Rp 1.680.000
-
 							</span>
 						</div>
 					</li>
@@ -227,7 +227,6 @@
 
 						<div class="header-cart-item-txt p-t-8">
 							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04 js-show-modal1">
-
 								Christian Dior F CD MYDIORO1 086 54
 							</a>
 
@@ -397,12 +396,13 @@
 		</div>
 	</form> -->
 
-	<form class="bg0 p-t-75 p-b-85">
+<div class="bg0 p-t-75 p-b-85">
     <fieldset>
         <legend class="judul_form">
             Wishlist
         </legend>
     </fieldset>
+	
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -413,20 +413,27 @@
                                 <th class="column-1" style="text-align: left;">Product</th>
                                 <th class="column-2">Name</th>
                                 <th class="column-3">Price</th>
-                                <th class="column-4" style="padding-left: 20px;">Quantity</th>
-                                <th class="column-5">Total</th>
+                                {{-- <th class="column-4" style="padding-left: 20px;">Quantity</th>
+                                <th class="column-5">Total</th> --}}
                             </tr>
 
+							@foreach($wishlist as $wish)
+							<form method="post" action="{{ route('addToCartfromWishlist') }}">
+								@csrf
+								<input type="hidden" name="product_id" value="{{ $wish->product_id }}">
+								<input type="hidden" name="wishlist_id" value="{{ $wishlistId }}">
+							
                             <tr class="table_row">
                                 <td class="column-1">
                                     <div class="how-itemcart1">
-                                        <img src="images/kacamata/Guess F GE 2783 021 54.png" alt="IMG" onclick="removeFromWishlist(this)">
+                                        <img src="{{$wish->product_picture}}" alt="IMG" onclick="window.location='{{ url('deleteWishlist') }}'">
                                     </div>
                                 </td>
-                                <td class="column-2">Guess F GE 2783 021 54</td>
-                                <td class="column-3">Rp 1.940.000</td>
+                                <td class="column-2">{{ $wish->product_name }}</td>
+                                {{-- <td class="column-3">{{ $wish->product_price }}</td> --}}
+								<td class="column-3">{{ $wish->product_price }}</td>
 
-                                <td class="column-4">
+                                {{-- <td class="column-4">
                                     <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                         <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                             <i class="fs-16 zmdi zmdi-minus"></i>
@@ -438,63 +445,37 @@
                                             <i class="fs-16 zmdi zmdi-plus"></i>
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
 
-                                <td class="column-5">Rp 1.940.000</td>
+                                {{-- <td class="column-5"></td> --}}
 
                                 <td class="column-6">
-                                    <button style="min-width: 80px; font-size: 10px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                    <button type="submit" style="min-width: 80px; font-size: 10px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                         Add to cart
                                     </button>
                                 </td>
                             </tr>
-
-                            <tr class="table_row">
-                                <td class="column-1">
-                                    <div class="how-itemcart1">
-                                        <img src="images/kacamata/Escada F ES VES422 0VA3 53.png" alt="IMG" onclick="removeFromWishlist(this)">
-                                    </div>
-                                </td>
-                                <td class="column-2">Escada F ES VES422 0VA3 53</td>
-                                <td class="column-3">Rp 2.545.000</td>
-
-                                <td class="column-4">
-                                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                            <i class="fs-16 zmdi zmdi-minus"></i>
-                                        </div>
-
-                                        <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product2" value="1">
-
-                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                            <i class="fs-16 zmdi zmdi-plus"></i>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td class="column-5">Rp 2.545.000</td>
-
-                                <td class="column-6">
-                                    <button style="min-width: 80px; font-size: 10px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                        Add to cart
-                                    </button>
-                                </td>
-                            </tr>
+							</form>
+							@endforeach
+                            
                         </table>
                     </div>
+					
                 </div>
             </div>
         </div>
     </div>
-</form>
+</div>
 
-<script>
+
+
+<!-- <script>
     function removeFromWishlist(element) {
         // Hapus baris tabel terkait
         var row = element.closest('tr');
         row.remove();
     }
-</script>
+</script> -->
 
 		
 	
@@ -676,59 +657,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		// 	}
 		// });
 
-		$(document).ready(function() {
-			var wishlistData = JSON.parse(localStorage.getItem('wishlist'));
-
-			if (wishlistData && wishlistData.length > 0) {
-				var $wishlistTable = $('.table-shopping-cart');
-
-				wishlistData.forEach(function(product) {
-				var $wishlistRow = $('<tr class="table_row"></tr>');
-				$wishlistRow.append('<td class="column-1"><div class="how-itemcart1"><img src="' + product.image + '" alt="IMG"></div></td>');
-				$wishlistRow.append('<td class="column-2">' + product.name + '</td>');
-				$wishlistRow.append('<td class="column-3">' + product.price + '</td>');
-
-				var $column4 = $('<td class="column-4"></td>');
-				$column4.append('<div class="wrap-num-product flex-w m-l-auto m-r-0">' +
-					'<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"><i class="fs-16 zmdi zmdi-minus"></i></div>' +
-					'<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product2" value="1">' +
-					'<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"><i class="fs-16 zmdi zmdi-plus"></i></div>' +
-					'</div>');
-				$wishlistRow.append($column4);
-				var totalPrice = product.price * product.quantity;
-      			$wishlistRow.append('<td class="column-5">' + totalPrice + '</td>');
-
-				var $column6 = $('<td class="column-6"></td>');
-				$column6.append('<button style="min-width: 80px; font-size: 10px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">Add to cart</button>');
-				$wishlistRow.append($column6);
-
-				// <td class="column-6">
-                                        
-				// 						<button style="min-width: 80px; font-size: 10px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-				// 							Add to cart
-				// 						</button>
-                //                     </td>
-
-				// Append other relevant columns or data
-
-				// <td class="column-4">
-                //                     <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                //                         <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                //                             <i class="fs-16 zmdi zmdi-minus"></i>
-                //                         </div>
-
-                //                         <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product2" value="1">
-
-                //                         <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                //                             <i class="fs-16 zmdi zmdi-plus"></i>
-                //                         </div>
-                //                     </div>
-                //                 </td>
-				
-				$wishlistTable.append($wishlistRow);
-				});
-			}
-		});
+		
+		
 
 
 	</script>

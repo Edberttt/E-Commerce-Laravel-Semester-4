@@ -1,7 +1,9 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+    // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+	// $conn = mysqli_connect("localhost", "root", "", "webdev");
+	$conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -543,7 +545,8 @@
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=139.255.11.84; dbname=ALP_HAWK', 'student', 'isbmantap');				
+				$dbh = new PDO('mysql:host=139.59.237.132; dbname=ALP_HAWK', 'student', 'isb-20232');
+				// $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");				
 
 					// Mengambil semua data produk
 				$stmt = $dbh->prepare('SELECT * FROM product ORDER BY product_id ASC limit 12');
@@ -586,10 +589,14 @@
 									Rp. {{number_format($productPrice , 2, ',', '.')}}
 								</span>
 							</div>
+							<!-- Button add to wishlist -->
+							<?php
+								// 
+							?>
 							<div class="block2-txt-child2 flex-r p-t-3">
 								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
 									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+									<!-- <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON"> -->
 								</a>
 							</div>
 						</div>
@@ -682,6 +689,7 @@
 																<i class="fs-16 zmdi zmdi-plus"></i>
 															</div>
 														</div>
+														<!-- Button Add to Cart -->
 														<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 															Add to cart
 														</button>
@@ -937,9 +945,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 												<i class="fs-16 zmdi zmdi-plus"></i>
 											</div>
 										</div>
-
+										
 										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-											Add to cart
+											Add to cart	
 										</button>
 									</div>
 								</div>	

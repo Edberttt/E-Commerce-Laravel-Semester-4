@@ -1,7 +1,9 @@
 <!-- Menghubungkan ke database -->
 <?php
     // Buat koneksi ke database
-    $conn = mysqli_connect("localhost", "root", "root", "webdev");
+    // $conn = mysqli_connect("localhost", "root", "", "webdev");
+	$conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+	// $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
 
     // Periksa koneksi
     if (mysqli_connect_errno()) {
@@ -26,7 +28,14 @@
 @section('title', 'All Products')
 @section('content')
 
-	
+	@if (session('success'))
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{ session('success') }}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>	
+		</div>
+	@endif
 	<!-- Product -->
 	<div class="bg0 m-t-23 p-b-140">
 		<div class="container">
@@ -157,7 +166,16 @@
 							<ul>
 								<?php
 								// Ambil data warna dari tabel product (misalnya menggunakan PDO)
-								$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
+								// $dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', '');
+								// $stmt = $dbh->prepare('SELECT DISTINCT product_color FROM product');
+								// $stmt->execute();
+								// $colors = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+								// $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
+								
+								// $dbh = new PDO('mysql:host=139.255.11.84;dbname=ALP_HAWK', 'student', 'isbmantap');
+								$dbh = new PDO('mysql:host=139.59.237.132; dbname=ALP_HAWK', 'student', 'isb-20232');
+								
 								$stmt = $dbh->prepare('SELECT DISTINCT product_color FROM product');
 								$stmt->execute();
 								$colors = $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -180,10 +198,14 @@
 				</div>
 			</div>
 
+			<!-- Product -->
 			<div class="row isotope-grid">
 				<?php
 				// Mengambil data produk dari tabel product (misalnya menggunakan PDO)
-				$dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', 'root');
+				// $dbh = new PDO('mysql:host=localhost;dbname=webdev', 'root', '');
+				
+				// $dbh = new PDO('mysql:host=139.255.11.84;dbname=ALP_HAWK', 'student', 'isbmantap');
+				$dbh = new PDO('mysql:host=139.59.237.132; dbname=ALP_HAWK', 'student', 'isb-20232');
 
 				// Mengatur default sorting berdasarkan nama produk
 				$sort = $_GET['sort'] ?? 'default';
@@ -236,7 +258,23 @@
 					} elseif ($category === 'U') {
 						$class = 'unisex';
 					}
+						
 				?>
+
+				<!-- <form method="post" action="{{ route('addToWishlist') }}">
+					@csrf
+					<input type="hidden" name="product_id" value="{{ $productId }}">
+					<input type="hidden" name="product_picture" value="{{ $productPicture }}">
+					<input type="hidden" name="product_name" value="{{ $productName }}">
+					<input type="hidden" name="product_price" value="{{ $productPrice }}">
+					
+					<button type="submit" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+					
+					</button>
+				</form> -->
+
+
+
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $class; ?>" data-category="<?php echo $class; ?>">
 					<!-- Block2 -->
 					<div class="block2">
@@ -256,10 +294,32 @@
 								</span>
 							</div>
 							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+								<!-- <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" value="addwish" name="addwish"> -->
+								<!-- <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" value="addwish" name="addwish" data-product-id="<?php echo $productId; ?>">	
 									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
 									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
+
+									PASSING VALUES KE WISHLISST PAGE DISINI
+								</a> -->
+								<form action="{{ route('addToWishlist') }}" method="post">
+									@csrf
+									<input type="hidden" name="product_id" value="{{ $productId }}">
+									<!-- <input type="hidden" name="product_picture" value="{{ $productPicture }}">
+									<input type="hidden" name="product_name" value="{{ $productName }}">
+									<input type="hidden" name="product_price" value="{{ $productPrice }}"> -->
+									<!-- ... other product details ... -->
+									<!-- <button type="submit" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2"> -->
+										<!-- Add to Wishlist button -->
+									<!-- </button> -->
+
+								<!-- WISHLIST BUTTON -->
+								<button type="submit">
+									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+									<!-- <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON"> -->
+								</button>
+								<!-- <button type="submit">submit</button> -->
+								</form>
+
 							</div>
 						</div>
 					</div>
@@ -351,19 +411,31 @@
 																<i class="fs-16 zmdi zmdi-plus"></i>
 															</div>
 														</div>
-														<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-															Add to cart
-														</button>
+
+														<form action="{{ route('addToCart') }}" method="post">
+															@csrf
+															<input type="hidden" name="product_id" value="{{$productId}}">
+															<!-- <input type="hidden" name="product_name" value="{{$productName}}">
+															<input type="hidden" name="product_price" value="{{$productPrice}}">
+															<input type="hidden" name="product_picture" value="{{$productPicture}}">
+															<input type="hidden" name="product_qty" value="1"> -->
+															<button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+																Add to cart
+															</button>
+														</form>
+
 													</div>
 												</div>	
 											</div>
 
 											<!--  -->
 											<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+												<!-- WISHLIST DETAIL PRODUCT -->
 												<div class="flex-m bor9 p-r-10 m-r-11">
-													<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+													<a href="#" value="addwish" name="addwish" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
 														<i class="zmdi zmdi-favorite"></i>
 													</a>
+													
 												</div>
 
 												<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
@@ -385,6 +457,33 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- <script>
+					function addToWishlist(button) {
+						var productId = button.getAttribute("data-product-id");
+						var productImg = button.getAttribute("data-product-picture");
+						var productName = button.parentElement.parentElement.nextElementSibling.querySelector(".js-name-b2").innerText;
+						var productPrice = button.parentElement.parentElement.nextElementSibling.querySelector(".stext-105").innerText;
+
+						// Make an AJAX request or use localStorage to store the product information
+						// Example using localStorage:
+						var wishlistItem = {
+							productId: productId,
+							productImg: productImg,
+							productName: productName,
+							productPrice: productPrice
+						};
+
+						var wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+						wishlist.push(wishlistItem);
+						localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+						alert("Product added to wishlist!");
+					}
+				</script> -->
+
+
+
 				<script>
 					$(document).ready(function(){
 					$("#myBtn{{$productId}}").click(function(e){

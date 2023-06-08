@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -33,7 +34,9 @@ class AccountController extends Controller
     {
         $sql = 'INSERT INTO user_tokens(user_id, selector, hashed_validator, expiry)
                 VALUES(?, ?, ?, ?)';
-        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        // $conn = mysqli_connect("localhost", "root", "", "webdev");
+        $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
 
         // Periksa koneksi
             if (mysqli_connect_errno()) {
@@ -54,7 +57,8 @@ class AccountController extends Controller
                     WHERE selector = ? AND
                         expiry >= now()
                     LIMIT 1';
-        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        $conn = mysqli_connect("localhost", "root", "", "webdev");
 
         // Periksa koneksi
             if (mysqli_connect_errno()) {
@@ -75,7 +79,8 @@ class AccountController extends Controller
     public function delete_user_token(string $user_id): bool
     {
         $sql = 'DELETE FROM user_tokens WHERE user_id = ?';
-        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        $conn = mysqli_connect("localhost", "root", "", "webdev");
 
         // Periksa koneksi
             if (mysqli_connect_errno()) {
@@ -102,7 +107,8 @@ class AccountController extends Controller
                 WHERE selector = ? AND
                     expiry > now()
                 LIMIT 1';
-        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        $conn = mysqli_connect("localhost", "root", "", "webdev");
 
         // Periksa koneksi
             if (mysqli_connect_errno()) {
@@ -120,7 +126,9 @@ class AccountController extends Controller
     }
 
     public function accountDetail(){
-        $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        // $conn = mysqli_connect("139.255.11.84", "student", "isbmantap", "ALP_HAWK");
+        // $conn = mysqli_connect("localhost", "root", "", "webdev");
+        $conn = mysqli_connect("139.59.237.132", "student", "isb-20232", "ALP_HAWK");
 
     // Periksa koneksi
         if (mysqli_connect_errno()) {
@@ -128,7 +136,12 @@ class AccountController extends Controller
             exit();
         }
         $info = session('status')[0];
-        // dump($info);
+        // $info['customer_id'];
+        // dd(Auth::user()->"customer_id");
+        // dd(auth()->user()->customer_id);
+        // dd($info['customer_id']);
+        
+        
         
         $query = 'select * from `order` where customer_id = "'.$info['customer_id'].'";';
         $query = mysqli_query($conn, $query);

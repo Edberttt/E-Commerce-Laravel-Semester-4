@@ -324,9 +324,9 @@
 
 							<div class="item-slick3" data-thumb="images/kacamata/quickview3.jpg">
 								<div class="wrap-pic-w pos-relative">
-									<img src="/{{$product['product_picture']}}" alt="IMG-PRODUCT">
+									<img src="{{$product['product_picture']}}" alt="IMG-PRODUCT">
 
-									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$product['product_picture']}}">
+									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{$product['product_picture']}}">
 										<i class="fa fa-expand"></i>
 									</a>
 								</div>
@@ -606,7 +606,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-pic hov-img0">
-									<img src="/<?php echo $productPicture; ?>" alt="IMG-PRODUCT">
+									<img src="<?php echo $productPicture; ?>" alt="IMG-PRODUCT">
 									
 								</div>
 								<div class="block2-txt flex-w flex-t p-t-14">
@@ -646,7 +646,7 @@
 																<div class="wrap-pic-w pos-relative">
 																	<img src="{{$productPicture}}" alt="IMG-PRODUCT">
 
-																	<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$productPicture}}">
+																	<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{$productPicture}}">
 																		<i class="fa fa-expand"></i>
 																	</a>
 																</div>

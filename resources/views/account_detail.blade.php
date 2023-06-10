@@ -113,9 +113,8 @@
 </div>
 									@if(!$o['order_status'])
 									<div class=" col-2"><a href="{{url('/order_update/'.$o['order_id'])}}" class="btn btn-success rounded text-white"><i class="fa fa-check"></i></a></div>
-									@else
-									<div class=" col-2"><a href="{{url('/order_undo/'.$o['order_id'])}}" class="btn btn-warning rounded text-black"><i class="fa fa-close"></i></a></div>
 									@endif
+									
 								</div>
 								<div id="{{'order'.$o['order_id']}}" class="collapse col-12 col-md-10 ">
 									<div class="table-responsive">

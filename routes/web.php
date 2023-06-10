@@ -15,6 +15,7 @@ use App\Http\Controllers\CartAddController;
 use App\Http\Controllers\CheckoutController;
 
 
+
 use App\Http\Controllers\OrderController;
 
 /*
@@ -114,6 +115,9 @@ Route::middleware('authsession')->group(function(){
     Route::get('/features_filter', function () {
         return view('features_filter');
     });
+
+    Route::get('/order_update/{get}', [OrderController::class, 'orderUpdate']);
+    Route::get('/order_undo/{get}', [OrderController::class, 'orderUndo']);
 });
 
 Route::get('/account', [authcontroller::class, 'account'])->name('account');

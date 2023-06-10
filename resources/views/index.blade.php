@@ -498,20 +498,7 @@
 				</h3>
 			</div>
 
-			<div class="flex-w flex-sb-m p-b-52">
-				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-						All Products
-					</button>
-
-					<!-- Membuat button berdasarkan data kategori -->
-					<?php foreach ($categories as $category): ?>
-						<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".<?= strtolower($category['category_name']) ?>">
-							<?= $category['category_name'] ?>
-						</button>
-					<?php endforeach; ?>
-				</div>
-			</div>
+			
 
 			<div class="row isotope-grid">
 				<?php
@@ -520,7 +507,7 @@
 				// $dbh = new PDO('mysql:host=127.0.0.1; dbname=ALP_HAWK', 'root', 'root');			
 
 					// Mengambil semua data produk
-				$stmt = $dbh->prepare('SELECT * FROM product ORDER BY product_id ASC limit 12');
+				$stmt = $dbh->prepare('SELECT * FROM product ORDER BY product_id DESC limit 16');
 				
 				$stmt->execute();
 				$products = $stmt->fetchAll(PDO::FETCH_ASSOC);

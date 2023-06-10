@@ -97,25 +97,54 @@ class CartController extends Controller
 
     // }
 
-    public function deleteCart(Request $request)
+    public function deleteCart($id)
     {
+        error_log("Masuk Delete");
         $customerId = session('status')[0]['customer_id'];
+        $productId = $id;
+        
         $cartIdResult = DB::select('SELECT cart_id FROM cart WHERE customer_id = ?', [$customerId]);
         $cartId = $cartIdResult[0]->cart_id;
+        
+        error_log($cartId);
+        error_log($productId);
 
-        $productId = $request->input('product_id');
+        $query = 'DELETE FROM cart_product WHERE cart_id = ? AND product_id = ?';
+        // $query = 'DELETE FROM wishlist_product WHERE wishlist_id = ?';
+        DB::delete($query, [$cartId, $productId]);
+        return redirect()->route('cart')->with('success', 'Product deleted from cart.');
 
-        $query = 'DELETE FROM cart_product WHERE cart_id = ? and product_id = ?';
-        DB::delete($query, [$cartId]);
-
-        DB::table('cart_product')->where('cart_id', $cartId,'product_id', $productId)->delete();
 
         // Pass the cart items to the cart page view
         // return view('shoping-cart', ['subtotal' => $subtotal]);
         // return view('shoping-cart', compact('subtotal'));
-        return view('shoping-cart')->with('success', 'Product deleted from cart.');
+        // return view('shoping-cart')->with('success', 'Product deleted from cart.');
         
     }
+    // public function deleteCart(Request $request)
+    // {
+    //     error_log("Masuk Delete");
+    //     $customerId = session('status')[0]['customer_id'];
+    //     $productId = $request->input('product_id');
+        
+    //     $cartIdResult = DB::select('SELECT cart_id FROM cart WHERE customer_id = ?', [$customerId]);
+    //     $cartId = $cartIdResult[0]->cart_id;
+        
+    //     error_log($cartId);
+    //     error_log($productId);
+
+    //     $query = 'DELETE FROM cart_product WHERE cart_id = ? AND product_id = ?';
+    //     // $query = 'DELETE FROM wishlist_product WHERE wishlist_id = ?';
+    //     DB::delete($query, [$cartId, $productId]);
+    //     return redirect()->route('cart')->with('success', 'Product deleted from cart.');
+
+
+    //     // Pass the cart items to the cart page view
+    //     // return view('shoping-cart', ['subtotal' => $subtotal]);
+    //     // return view('shoping-cart', compact('subtotal'));
+    //     // return view('shoping-cart')->with('success', 'Product deleted from cart.');
+        
+    // }
 
     // public function delete($cartId)
     // {

@@ -313,46 +313,52 @@
 									<th class="column-4" style="padding-left: 20px;">Quantity</th>
 									<th class="column-5">Total</th>
 								</tr>
+
 								@foreach($cart as $item)
-								<form>
+								{{-- <form action="{{ route('deleteCart') }}" method="POST"> --}}
+									{{-- <form action="{{ route('deleteCart', ['productId' => $item->product_id]) }}" method="POST"> --}}
+								
+								
+
 									@csrf
+									
+									<tr class="table_row">
+										<td class="column-1">
+											
+												{{-- @method('DELETE') --}}
+												<div class="how-itemcart1">
+													<img src="{{ $item->product_picture }}" alt="IMG">
+													{{-- <a href="{{ Route:('deleteCart') }}"></a> --}}
+													
+												</div>
+												<form action="/cartPageDelete/{{ $item->cart_id }}" method="get">
+													@csrf
+												<button type="submit" style="padding-left: 5px">Delete</button>
+												</form>
+												{{-- <a href="{{ route('deleteCart', ['productId' => $item->product_id]) }}">Submit</a> --}}
 
-								<tr class="table_row">
-									<td class="column-1">
-										<form action="{{ route('deleteCart', ['cartId' => $cartId]) }}" method="POST">
-											@csrf
-											{{-- @method('DELETE') --}}
-											<div class="how-itemcart1">
-												<img src="{{ $item->product_picture }}" alt="IMG">
-												{{-- <a href="{{ Route:('deleteCart') }}"></a> --}}
-												
+											
+										</td>
+										<td class="column-2">{{ $item->product_name }}</td> 
+										<td class="column-3">{{ $item->product_price  }}</td>
+
+										<td class="column-4">
+											<div class="wrap-num-product flex-w m-l-auto m-r-0">
+												<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+													<i class="fs-16 zmdi zmdi-minus"></i>
+												</div>
+
+												<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="{{ $item->quantity }}">
+
+												<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+													<i class="fs-16 zmdi zmdi-plus"></i>
+												</div>
 											</div>
-											<button type="submit">Delete</button>
-											{{-- <a href="{{ route('deleteCart', ['productId' => $item->product_id]) }}">Submit</a> --}}
+										</td>
 
-										</form>
-									</td>
-									<td class="column-2">{{ $item->product_name }}</td> 
-									<td class="column-3">{{ $item->product_price  }}</td>
+										<td class="column-5">{{ $item->product_price }}</td>
 
-									<td class="column-4">
-										<div class="wrap-num-product flex-w m-l-auto m-r-0">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="{{ $item->quantity }}">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div>
-									</td>
-
-									<td class="column-5">{{ $item->product_price }}</td>
-
-								</tr>
-								</form>
+									</tr>
 								@endforeach
 							</table>
 						</div>
@@ -366,16 +372,17 @@
 								</div>
 							</div> -->
 
-							<form>
+							{{-- <form action="{{ route('deleteCart', ['cartId' => $item->cart_id]) }}" method="delete">
 								@csrf
-								@method('PUT')
+								@method('DELETE')
+								{{-- @method('PUT')
 								<input type="hidden" name="cartId" value="{{ $cartId }}">
 								<input type="hidden" name="productId" value="{{ $item->product_id }}">
-								<input type="hidden" name="quantity" value="{{ $item->quantity }}">
-								<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-									Update Cart
-								</div>
-							</form>
+								<input type="hidden" name="quantity" value="{{ $item->quantity }}"> 
+								<button type="submit" style="width: 100px" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+									Clear Cart
+								</button>
+							</form> --}}
 						</div>
 					</div>
 				</div>

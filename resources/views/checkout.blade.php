@@ -386,9 +386,9 @@
 								</div>
 							</div> -->
 
-							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+							{{-- <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
 								Update Cart
-							</div>
+							</div> --}}
 						</div>
 					</div>
 				</div>
@@ -818,9 +818,12 @@
 							<img src="images/kacamata/qris.jpg_large" style="width: 200px; padding-left: 80px; height: 200px; margin-bottom: 25px; padding-bottom: 10px; justify-content: center; padding-top: 0;">
 						  </div>
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-							Checkout
-						</button>
+						  <form action="{{ route('checkout') }}" method="POST">
+							@csrf
+							<button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+								Checkout
+							</button>
+						  </form>
 
 					</div>
 				</div>

@@ -46,21 +46,27 @@ Route::middleware('authsession')->group(function(){
     // Route::get('/cartPage', [CartController::class, 'cartPage'])->name('cart');
     Route::post('/addToCart', [CartAddController::class, 'addToCart'])->name('addToCart');
     Route::get('/cartPage', [CartController::class, 'cartPage'])->name('cart');
-    Route::post('/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
+    // Route::delete('/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
+    // Route::match(['DELETE', 'POST'], '/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
+    Route::post('/clearCart', [CartController::class, 'clearCart'])->name('clearCart');
+    // Route::get('/cartPageDelete',[CartController::class, 'deleteCart'])->name('deleteCart');
+    Route::get('/cartPageDelete/{id}',[CartController::class, 'deleteCart'])->name('deleteCart');
 
+
+    //CheckoutController
+    // Route::get('/checkoutAll', [CheckoutController::class, 'checkoutAll'])->name('checkout');
+    Route::post('/checkoutPage', [CheckoutController::class, 'checkoutAll'])->name('checkout');
     Route::get('/sliderCart', [CartController::class, 'sliderCart'])->name('sliderCart');
     Route::get('/index', [CartController::class, 'sliderCart'])->name('sliderCart');
 
-    Route::delete('/cart/delete/{cartId}', [CartController::class, 'delete'])->name('deleteCart');
+    // Route::delete('/cart/delete/{cartId}', [CartController::class, 'delete'])->name('deleteCart');
     Route::post('/cart/update', [CartController::class, 'update'])->name('updateCart');
 
 
     //CheckoutController
     Route::get('/checkoutPage', [CheckoutController::class, 'checkoutPage'])->name('checkout');
     Route::post('/dataCheckout', [CheckoutController::class, 'dataCheckout'])->name('dataCheckout');
-    // Route::post('/checkoutPage', [CheckoutAddController::class, 'checkoutPage'])->name('checkout');
-
-    
+    // Route::post('/checkoutPage', [CheckoutAddController::class, 'checkoutPage'])->name('checkout');    
 
     Route::get('/wishlist-detail', function () {
         return view('wishlist-detail');

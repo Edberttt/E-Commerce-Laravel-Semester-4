@@ -55,13 +55,56 @@ class CheckoutController extends Controller
     //     $query = 'INSERT INTO order (order_id, customer_id, shipper_id, product_id, quantity, price) SELECT ?, product_id, quantity, price FROM cart_product WHERE cart_id = ?';
     // }
 
+    // public function checkoutAll(Request $request){
+    //     $customerId = session('status')[0]['customer_id'];
+    //     $cartIdResult = DB::select('SELECT cart_id FROM cart WHERE customer_id = ?', [$customerId]);
+    //     $cartId = $cartIdResult[0]->cart_id;
+
+    //     // $query = 'INSERT INTO order (order_id, customer_id, shipper_date, order_grandtotal, order_created, order_updated, order_status quantity, price) SELECT ?, ?, ?, product_id, quantity, price FROM cart_product WHERE cart_id = ?';
+    //     // DB::statement($query, [1, $customerId, 1, $cartId]);
+
+    //     // $query = 'INSERT INTO order_detail (order_detail_id, product_id, quantity, price) SELECT ?, product_id, quantity, price FROM cart_product WHERE cart_id = ?';
+    //     $query= 'INSERT INTO order_detail (order_detail_id, product_id, quantity, price) SELECT ?, product_id, quantity, price FROM cart_product WHERE cart_id = ?';
+    //     DB::statement($query, [1, $cartId]);
+        
+
+    //     $query = 'DELETE FROM cart_product WHERE cart_id = ?';
+    //     DB::statement($query, [$cartId]);
+
+    //     return redirect()->back()->with('success', 'Checkout Success.');
+    // }
+
     public function checkoutAll(Request $request){
         $customerId = session('status')[0]['customer_id'];
         $cartIdResult = DB::select('SELECT cart_id FROM cart WHERE customer_id = ?', [$customerId]);
         $cartId = $cartIdResult[0]->cart_id;
 
-        $query = 'INSERT INTO order (order_id, customer_id, shipper_id, shipper_date, shipper_address product_id, quantity, price) SELECT ?, ?, ?, product_id, quantity, price FROM cart_product WHERE cart_id = ?';
-        DB::statement($query, [1, $customerId, 1, $cartId]);
+        // $query = 'INSERT INTO order (order_id, customer_id, shipper_date, order_grandtotal, order_created, order_updated, order_status quantity, price) SELECT ?, ?, ?, product_id, quantity, price FROM cart_product WHERE cart_id = ?';
+        // DB::statement($query, [1, $customerId, 1, $cartId]);
+        // $query = 'SELECT SUM(p.product_price * c.quantity) AS total FROM cart_product c LEFT JOIN product p ON c.product_id = p.product_id WHERE c.cart_id = ?';
+        $query = 'SELECT p.product_price AS total FROM cart_product c LEFT JOIN product p ON c.product_id = p.product_id WHERE c.cart_id = ?';
+        $subtotal = DB::select($query, [$cartId]);
+        $total = $subtotal[0]->total;
+        $query = 'SELECT quantity FROM cart_product WHERE cart_id = ?';
+        $quantityResult = DB::select($query, [$cartId]);
+        $quantity = $quantityResult[0]->quantity;
+        $query = 'SELECT product_id FROM product WHERE product_price = ?';
+        $productId = DB::select($query, [$total]);
+
+        
+        // $customerAddress = $customerAddressResult[0]->customer_address;
+
+        // $query = 'INSERT INTO order_detail (order_detail_id, product_id, quantity, price) SELECT ?, product_id, quantity, price FROM cart_product WHERE cart_id = ?';
+        // $query= 'INSERT INTO `transaction` (Quantity, Total, day_trans) SELECT Quantity, ' . $subtotal[0]->total . ', NOW() FROM cart_product WHERE cart_id = ?';
+        // $query= 'INSERT INTO `transaction` (customer_id, product_id, Quantity, Total, day_trans) SELECT ' . $customerId[0]->customer_id . ', ' . $productId[0]->product_id . ', ' . $total . ', NOW() FROM cart_product WHERE cart_id = ?';
+        $query='INSERT INTO `transaction` (customer_id,product_id,Quantity, Total, day_trans) SELECT ?,?,?,?,NOW() FROM cart_product WHERE cart_id = ?';
+        DB::statement($query, [
+            $customerId,
+            $productId[0]->product_id,
+            $quantity,
+            $total,
+            $cartId
+        ]);        
 
         $query = 'DELETE FROM cart_product WHERE cart_id = ?';
         DB::statement($query, [$cartId]);
